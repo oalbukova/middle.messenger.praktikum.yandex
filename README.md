@@ -1,6 +1,6 @@
 # Мессенджер
 
-* Опубликованное в Netlify приложение: [Ссылка на приложение](https://jovial-macaron-a5ffcb.netlify.app)
+* Опубликованное в Netlify приложение: [Ссылка на приложение](https://gentle-conkies-dc92ee.netlify.app)
 
 ## Описание
 
@@ -12,7 +12,7 @@
 
 * Настроена сборка с использованием [Parcel](https://parceljs.org/) и раздача статики сервером на Express
 
-* Приложение автоматически деплоится на [Netlify](https://www.netlify.com/) из ветки `deploy`. [Ссылка на приложение](https://jovial-macaron-a5ffcb.netlify.app)
+* Приложение автоматически деплоится на [Netlify](https://www.netlify.com/) из ветки `deploy`. [Ссылка на приложение](https://gentle-conkies-dc92ee.netlify.app)
 
 ## Установка и запуск
 
