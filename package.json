@@ -4,7 +4,8 @@
   "description": "---",
   "scripts": {
     "dev": "parcel static/index.html && --no-cache",
-    "build": "parcel build static/index.html && node ./server.js",
+    "build": "parcel build static/index.html --no-cache",
+    "start": "npm run build && node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
