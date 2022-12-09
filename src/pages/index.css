@@ -1,0 +1,5 @@
+@import url(./main/main.scss);
+@import url(./not-found/not-found.scss);
+@import url(./server-err/server-err.scss);
+@import url(./sign-in/sign-in.scss);
+@import url(./sign-up/sign-up.scss);

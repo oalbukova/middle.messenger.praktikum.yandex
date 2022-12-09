@@ -1,12 +1,14 @@
 @import url(../vendor/normalize.css);
 @import url(../fonts/fonts.css);
+@import url(./_variabless.scss);
+@import url(../../src/styles.css);
 
 body {
-  margin: 0;
+  margin: 0 auto;
   font-size: 16px;
   line-height: 20px;
   font-family: "Circe", sans-serif;
-  color: #434343;
+  color: var(--color-main);
   font-weight: 400;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -16,8 +18,28 @@ body {
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
   min-height: 100%;
-  background-image: url("../images/back.jpg");
+  background-image: url("/static/images/back.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  max-width: 1480px;
+  min-width: 375px;
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+
+  &__link {
+    cursor: pointer;
+    color: var(--color-border);
+    font-size: 72px;
+    font-weight: 700;
+    margin: auto;
+    transition: opacity linear 0.5s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }

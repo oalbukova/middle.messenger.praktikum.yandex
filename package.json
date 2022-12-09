@@ -4,7 +4,8 @@
   "description": "---",
   "scripts": {
     "dev": "parcel static/index.html && --no-cache",
-    "build": "parcel build static/index.html && node ./server.js",
+    "build": "parcel build static/index.html --no-cache",
+    "start": "npm run build && node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,14 +20,14 @@
   "homepage": "https://github.com/oalbukova/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@parcel/transformer-sass": "2.8.0",
     "parcel": "2.8.0",
     "postcss": "8.4.19",
-    "autoprefixer": "10.4.13",
     "postcss-import": "15.0.1",
     "postcss-nested": "6.0.0",
     "postcss-simple-vars": "7.0.1"
   },
   "dependencies": {
-    "express": "4.18.2"
+    "express": "4.18.1"
   }
 }

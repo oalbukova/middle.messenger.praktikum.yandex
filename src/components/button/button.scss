@@ -1,0 +1,27 @@
+.button {
+  cursor: pointer;
+  color: var(--color-border);
+  text-decoration: none;
+  width: max-content;
+  margin: 0 auto;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &_outlined {
+    color: var(--color-clean);
+    border-radius: 11px;
+    border: 1px solid var(--color-clean);
+    padding: 12px 32px;
+  }
+
+  &_contained {
+    color: var(--color-clean);
+    border-radius: 11px;
+    padding: 12px 32px;
+    background-color: var(--color-border);
+    margin-block: 10px 20px;
+  }
+}
+
