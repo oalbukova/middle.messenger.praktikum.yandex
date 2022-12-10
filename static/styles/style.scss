@@ -1,24 +1,19 @@
 @import url(../vendor/normalize.css);
-@import url(../fonts/fonts.css);
-@import url(./_variabless.scss);
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url(../styles/_variabless.scss);
 @import url(../../src/styles.css);
 
 body {
   margin: 0 auto;
   font-size: 16px;
   line-height: 20px;
-  font-family: "Circe", sans-serif;
-  color: var(--color-main);
+  font-family: "Montserrat", sans-serif;
+  color: var(--color-text);
   font-weight: 400;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
-  min-height: 100%;
-  background-image: url("/static/images/back.jpg");
+  min-height: 100vh;
+  background-image: url("../images/back.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,20 +21,6 @@ body {
   min-width: 375px;
 }
 
-.main-container {
+.container {
   display: flex;
-  height: 100vh;
-
-  &__link {
-    cursor: pointer;
-    color: var(--color-border);
-    font-size: 72px;
-    font-weight: 700;
-    margin: auto;
-    transition: opacity linear 0.5s;
-
-    &:hover {
-      opacity: 0.5;
-    }
-  }
 }

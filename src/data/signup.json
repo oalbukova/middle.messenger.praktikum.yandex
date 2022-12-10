@@ -6,7 +6,7 @@
       "name": "first_name",
       "id": "first_name",
       "required": "required",
-      "error": "Поле обязательно для заполнения"
+      "error-msg": "Поле обязательно для заполнения"
     },
     {
       "type": "text",
@@ -14,7 +14,7 @@
       "name": "second_name",
       "id": "second_name",
       "required": "required",
-      "error": "Поле обязательно для заполнения"
+      "error-msg": "Поле обязательно для заполнения"
     },
     {
       "type": "text",
@@ -22,7 +22,7 @@
       "name": "login",
       "id": "login",
       "required": "required",
-      "error": "Поле обязательно для заполнения"
+      "error-msg": "Поле обязательно для заполнения"
     },
     {
       "type": "email",
@@ -30,7 +30,7 @@
       "name": "email",
       "id": "email",
       "required": "required",
-      "error": "Поле обязательно для заполнения"
+      "error-msg": "Поле обязательно для заполнения"
     },
     {
       "type": "password",
@@ -38,15 +38,15 @@
       "name": "password",
       "id": "password",
       "required": "required",
-      "error": "Поле обязательно для заполнения"
+      "error-msg": "Поле обязательно для заполнения"
     },
     {
       "type": "tel",
-      "placeholder": "номер телефона",
+      "placeholder": "телефон",
       "name": "phone",
       "id": "phone",
       "required": "required",
-      "error": "Поле обязательно для заполнения"
+      "error-msg": "Поле обязательно для заполнения"
     }
   ]
 }

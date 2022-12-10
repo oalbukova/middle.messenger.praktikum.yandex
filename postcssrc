@@ -1,8 +1,0 @@
-module.exports = {
-  plugins: [
-    require("postcss-import")(),
-    require("precss")({}),
-    require("postcss-simple-vars")({ silent: true }),
-    require("postcss-nested")(),
-  ],
-};

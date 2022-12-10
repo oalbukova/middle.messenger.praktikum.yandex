@@ -1,0 +1,30 @@
+.chat-aside {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  box-sizing: border-box;
+  padding: 20px;
+  min-height: 100%;
+  border-right: 1px solid var(--color-border);
+
+  &__profile-link {
+    color: var(--color-border);
+    font-weight: 700;
+    font-size: 20;
+    margin: 0 0 20px auto;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.5;
+      text-decoration: underline;
+    }
+  }
+
+  &__profile-btn {
+    margin-inline-start: 15px;
+    width: 16px;
+    height: 20px;
+    margin-bottom: -2px;
+  }
+}
+

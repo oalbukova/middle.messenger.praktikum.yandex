@@ -3,6 +3,7 @@
 
   &__input {
     cursor: pointer;
+    color: var(--color-text);
     pointer-events: auto;
     outline: none;
     border: 1px solid var(--color-border);
@@ -35,7 +36,7 @@
     font-size: 12px;
     line-height: 14px;
     margin-block-start: 6px;
-    // opacity: 0;
+    opacity: 1;
 
     &_type_active {
       opacity: 1;
