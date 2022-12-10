@@ -38,7 +38,7 @@ npm run build
 npm run dev
 ```
 
-Сборка проекта и запуск сервера на Express, порт 3000. http://localhost:3000:
+Сборка проекта и запуск сервера на Express, на порту 3000. http://localhost:3000:
 
 ```bash
 npm run start

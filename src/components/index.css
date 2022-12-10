@@ -1,0 +1,9 @@
+@import url(./main-link/main-link.scss);
+@import url(./button/button.scss);
+@import url(./link/link.scss);
+@import url(./input/input.scss);
+@import url(./form-title/form-title.scss);
+@import url(./avatar/avatar.scss);
+@import url(./aside/aside.scss);
+@import url(./chat-list/chat-list.scss);
+@import url(./search/search.scss);

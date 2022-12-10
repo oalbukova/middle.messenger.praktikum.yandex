@@ -1,0 +1,14 @@
+{{!< desctop}}
+
+<main class="sign-up">
+  <img class="sign-up__image-left" alt="фоновая картинка" src="/static/images/auth-left.png"/>
+  <img class="sign-up__image-right" alt="фоновая картинка" src="/static/images/signup-right.png"/>
+  <form class="sign-up__form">
+    {{> form-title/form-title formTitle="Регистрация"}}
+    {{#each signup.inputs}}
+      {{>input/input }}
+    {{/each}}
+    {{> button/button text="Зарегистрироваться" }}
+    {{> link/link text="Вход" href="/src/pages/sign-in/sign-in.hbs" }}
+  </form>
+</main>

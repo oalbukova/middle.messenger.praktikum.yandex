@@ -1,5 +1,11 @@
-<ul>
-  <li>
-    <a href="./not-found.hbs">404 page</a>
-  </li>
-</ul>
+{{!< desctop}}
+
+<main class="main-container">
+  <nav>
+    <ul class="list">
+      {{#each main.links}}
+        {{>main-link/main-link }}
+      {{/each}}
+    </ul>
+  </nav>
+</main>

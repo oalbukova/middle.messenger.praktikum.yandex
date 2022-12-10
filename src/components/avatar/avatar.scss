@@ -1,0 +1,35 @@
+.avatar {
+  position: relative;
+  width: max-content;
+  margin: auto;
+
+  &__img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto 20px;
+    cursor: pointer;
+  }
+
+  &__img-hover {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    background-image: url(/static/images/foto.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity linear 0.5s;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+}

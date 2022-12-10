@@ -1,0 +1,31 @@
+.sign-in {
+  position: relative;
+  width: var(--full);
+  min-height: 100%;
+  display: flex;
+  box-sizing: border-box;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 20;
+    margin: 40% 0 auto 20%;
+    width: var(--full);
+    max-width: 400px;
+  }
+
+  &__image-left {
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    left: 0;
+  }
+
+  &__image-right {
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+}

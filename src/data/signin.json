@@ -1,0 +1,20 @@
+{
+  "inputs": [
+    {
+      "type": "text",
+      "placeholder": "имя",
+      "name": "login",
+      "id": "login",
+      "required": "required",
+      "error-msg": "Поле обязательно для заполнения"
+    },
+    {
+      "type": "password",
+      "placeholder": "пароль",
+      "name": "password",
+      "id": "password",
+      "required": "required",
+      "error-msg": "Поле обязательно для заполнения"
+    }
+  ]
+}

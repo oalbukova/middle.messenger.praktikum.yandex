@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "---",
   "scripts": {
-    "dev": "parcel static/index.html && --no-cache",
-    "build": "parcel build static/index.html --no-cache",
+    "dev": "parcel src/pages/**/*.hbs --no-cache",
+    "build": "parcel build src/pages/index.hbs --no-cache --public-url ./",
     "start": "npm run build && node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/oalbukova/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "1.0.9",
+<<<<<<< HEAD
     "parcel": "2.8.0",
     "postcss": "8.4.19",
     "autoprefixer": "10.4.13",
@@ -29,5 +30,17 @@
   },
   "dependencies": {
     "express": "4.18.2"
+=======
+    "@parcel/transformer-sass": "^2.8.0",
+    "parcel": "2.8.0",
+    "postcss": "8.4.19",
+    "postcss-import": "15.1.0",
+    "postcss-nested": "6.0.0",
+    "postcss-simple-vars": "7.0.1",
+    "precss": "4.0.0"
+  },
+  "dependencies": {
+    "express": "4.18.1"
+>>>>>>> sprint_1
   }
 }
