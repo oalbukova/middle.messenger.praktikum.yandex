@@ -1,0 +1,36 @@
+{
+  "links": [
+    {
+      "title": "Регистрация",
+      "href": "/src/pages/sign-up/sign-up.hbs"
+    },
+    {
+      "title": "Авторизация",
+      "href": "/src/pages/sign-in/sign-in.hbs"
+    },
+    {
+      "title": "Профиль",
+      "href": "/src/pages/profile/profile.hbs"
+    },
+    {
+      "title": "Смена пароля",
+      "href": "/src/pages/change-password/change-password.hbs"
+    },
+    {
+      "title": "Чат (активный диалог) ",
+      "href": "/src/pages/chat-page/chat-page.hbs"
+    },
+    {
+      "title": "Чат",
+      "href": "/src/pages/сhat-not-selected/сhat-not-selected.hbs"
+    },
+    {
+      "title": "Ошибка 404",
+      "href": "/src/pages/not-found/not-found.hbs"
+    },
+    {
+      "title": "Ошибка 500",
+      "href": "/src/pages/server-err/server-err.hbs"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+.profile {
+  display: flex;
+  width: var(--full);
+  position: relative;
+  margin: auto;
+  height: 100vh;
+  box-sizing: border-box;
+
+  &__name {
+    text-align: center;
+    margin: auto;
+    color: var(--color-border);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-block-end: 20px;
+    font-size: 20px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 20;
+    margin: auto 0 auto 15%;
+    width: var(--full);
+    max-width: 400px;
+  }
+
+  &__image-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+}

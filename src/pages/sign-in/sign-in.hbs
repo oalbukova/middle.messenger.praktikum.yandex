@@ -1,0 +1,14 @@
+{{!< desctop}}
+
+<main class="sign-in">
+  <img class="sign-in__image-left" alt="фоновая картинка" src="/static/images/auth-left.png"/>
+  <img class="sign-in__image-right" alt="фоновая картинка" src="/static/images/auth-right.png"/>
+  <form class="sign-in__form">
+    {{> form-title/form-title formTitle="Авторизация"}}
+    {{#each signin.inputs}}
+      {{>input/input }}
+    {{/each}}
+    {{> button/button text="Войти" }}
+    {{> link/link text="Еще не зарегистрированы?" href="/src/pages/sign-up/sign-up.hbs" }}
+  </form>
+</main>
