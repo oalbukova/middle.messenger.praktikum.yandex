@@ -1,0 +1,16 @@
+{
+  "buttons": [
+    {
+      "title": "Фото или Видео",
+      "src": "/static/images/video.svg"
+    },
+    {
+      "title": "Файл",
+      "src": "/static/images/add-file.svg"
+    },
+    {
+      "title": "Локация",
+      "src": "/static/images/location.svg"
+    }
+  ]
+}

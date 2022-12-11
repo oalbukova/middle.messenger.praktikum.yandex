@@ -1,18 +1,15 @@
 # Мессенджер
+## [Ссылка на oпубликованное в Netlify приложение](https://famous-sherbet-f653e5.netlify.app)
 
-* Опубликованное в Netlify приложение: [Ссылка на приложение](https://famous-sherbet-f653e5.netlify.app)
-
-## Описание
-
-Самостоятельная проектная работа, выполненная в рамках обучения на курсе [Мидл фронтенд-разработчик](https://praktikum.yandex.ru/middle-frontend/)  [Яндекс.Практикума](https://praktikum.yandex.ru).
+### Самостоятельная проектная работа, выполненная в рамках обучения на курсе [Мидл фронтенд-разработчик](https://praktikum.yandex.ru/middle-frontend/) от Яндекс.Практикум.
 
 ## Спринт 1
 
-* Свёрстаны  страницы приложения с использованием шаблонизатора [Handlebars](https://handlebarsjs.com/)
+* Свёрстаны  страницы приложения с использованием шаблонизатора [Handlebars](https://handlebarsjs.com/).
 
-* Настроена сборка с использованием [Parcel](https://parceljs.org/) и раздача статики сервером на Express
+* Настроена сборка с использованием [Parcel](https://parceljs.org/) и раздача статики сервером на Express.
 
-* Приложение автоматически деплоится на [Netlify](https://www.netlify.com/) из ветки `deploy`. [Ссылка на приложение](https://famous-sherbet-f653e5.netlify.app)
+* Приложение автоматически деплоится на [Netlify](https://www.netlify.com/) из ветки `deploy`. [Ссылка на приложение](https://famous-sherbet-f653e5.netlify.app).
 
 ## Установка и запуск
 
@@ -38,7 +35,7 @@ npm run build
 npm run dev
 ```
 
-Сборка проекта и запуск сервера на Express, на порту 3000. http://localhost:3000:
+Сборка проекта и запуск сервера на Express, на порту 3000: http://localhost:3000
 
 ```bash
 npm run start

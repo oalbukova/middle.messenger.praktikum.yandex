@@ -1,0 +1,11 @@
+<div class="modal-add">
+  <div class="modal-add__overlay"></div>
+  <div class="modal-add__paper">
+    <button class="modal-add__close-btn"></button>
+      {{> form-title/form-title formTitle="Добавить пользователя"}}
+      {{#with modal.input}}{{>input/input }}{{/with}}
+      <div class="modal-add__btn-container">
+        {{> button/button text="Добавить" }}
+      </div>
+  </div>
+</div>
