@@ -17,8 +17,12 @@
       "href": "/src/pages/change-password/change-password.hbs"
     },
     {
+      "title": "Чат (активный диалог) ",
+      "href": "/src/pages/chat-page/chat-page.hbs"
+    },
+    {
       "title": "Чат",
-      "href": "/src/pages/chat/chat.hbs"
+      "href": "/src/pages/сhat-not-selected/сhat-not-selected.hbs"
     },
     {
       "title": "Ошибка 404",

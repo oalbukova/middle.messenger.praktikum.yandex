@@ -1,0 +1,48 @@
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 10px;
+  height: max-content;
+  border-bottom: 1px solid var(--color-border);
+  width: var(--full);
+
+  &__info {
+    display: flex;
+  }
+
+  &__avatar {
+    width: 47px;
+    height: 57px;
+    object-fit: cover;
+    object-position: center;
+    margin: auto 10px auto 0;
+    margin-inline-end: 10px;
+  }
+
+  &__name {
+    font-weight: 700;
+    margin: auto 0;
+  }
+
+  &__btn {
+    width: 25px;
+    height: 25px;
+    background-color: inherit;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    margin: auto 0;
+    display: flex;
+    cursor: pointer;
+  }
+
+  &__img {
+    width: 3px;
+    height: 16px;
+    background-image: url("/static/images/menu.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: auto;
+  }
+}

@@ -5,7 +5,7 @@
   margin: auto;
   color: var(--color-clean);
   width: var(--full);
-  min-height: 100%;
+  min-height: var(--full);
   box-sizing: border-box;
 
   &__content {
