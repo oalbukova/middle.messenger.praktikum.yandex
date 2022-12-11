@@ -2,7 +2,8 @@
   display: flex;
   width: var(--full);
   position: relative;
-  min-height: var(--full);
+  margin: auto;
+  height: 100vh;
   box-sizing: border-box;
 
   &__name {

@@ -6,7 +6,7 @@
   &__btn {
     border: none;
     outline: none;
-    margin: auto 0;
+    margin: auto 0 auto 10px;
     display: flex;
     cursor: pointer;
     width: 28px;
@@ -21,7 +21,7 @@
   &__file-btn {
     border: none;
     outline: none;
-    margin: auto 0;
+    margin: auto 15px auto 0;
     display: flex;
     cursor: pointer;
     width: 26px;
@@ -31,5 +31,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    margin-inline-end: 20px;
+  }
+
+  &__input {
+    margin-block-start: 20px;
+    width: var(--full);
   }
 }

@@ -1,11 +1,13 @@
 .chat-page {
   display: flex;
   width: var(--full);
-  height: 100vh;
 
   &__wrapper {
     padding: 0 0  0 20px;
     width: var(--full);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   &__list {
