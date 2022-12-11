@@ -1,7 +1,7 @@
 @import "../vendor/normalize.css";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 @import "./variabless";
-@import "../../src/styles.scss";
+@import "/src/styles.scss";
 
 
 body {
@@ -14,6 +14,8 @@ body {
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-image: url("../images/back.jpg");
   background-position: center;
   background-repeat: no-repeat;

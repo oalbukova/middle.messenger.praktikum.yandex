@@ -1,7 +1,7 @@
 .sign-in {
   position: relative;
   width: var(--full);
-  min-height: 100%;
+  min-height: var(--full);
   display: flex;
   box-sizing: border-box;
 

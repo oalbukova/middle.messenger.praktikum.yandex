@@ -3,7 +3,7 @@
   margin: auto;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  height: var(--full);
 
   &__img {
     background-image: url("/static/images/500.png");

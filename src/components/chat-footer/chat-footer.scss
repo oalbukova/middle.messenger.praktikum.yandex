@@ -1,0 +1,35 @@
+.chat-footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+
+  &__btn {
+    border: none;
+    outline: none;
+    margin: auto 0;
+    display: flex;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    background-image: url("/static/images/go.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: inherit;
+  }
+
+  &__file-btn {
+    border: none;
+    outline: none;
+    margin: auto 0;
+    display: flex;
+    cursor: pointer;
+    width: 26px;
+    height: 35px;
+    background-image: url("/static/images/file.svg");
+    background-color: inherit;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}

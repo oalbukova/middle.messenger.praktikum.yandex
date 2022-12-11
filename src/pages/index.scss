@@ -4,7 +4,8 @@
 @import "./sign-up/sign-up.scss";
 @import "./profile/profile.scss";
 @import "./change-password/change-password.scss";
-@import "./chat/chat.scss";
+@import "./chat-page/chat-page.scss";
+@import "./сhat-not-selected/сhat-not-selected.scss";
 
 .main-container {
   margin: auto;
@@ -25,9 +26,11 @@
     font-size: 48px;
     font-weight: 700;
     transition: opacity linear 0.5s;
+    text-decoration: none;
 
     &:hover {
       opacity: 0.5;
+      text-decoration: underline;
     }
   }
 }
