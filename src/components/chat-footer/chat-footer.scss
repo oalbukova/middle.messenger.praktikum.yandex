@@ -2,6 +2,7 @@
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
+  position: relative;
 
   &__btn {
     border: none;

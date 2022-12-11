@@ -5,6 +5,7 @@
   height: max-content;
   border-bottom: 1px solid var(--color-border);
   width: var(--full);
+  position: relative;
 
   &__info {
     display: flex;

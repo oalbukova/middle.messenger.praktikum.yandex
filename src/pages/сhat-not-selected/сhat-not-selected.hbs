@@ -1,16 +1,6 @@
 {{!< desctop}}
 
 <main class="chat-page">
-  <aside class="chat-aside">
-    <a class="chat-aside__profile-link" href="/src/pages/profile/profile.hbs">Профиль
-      <img class="chat-aside__profile-btn" src="/static/images/arrow.svg" alt="переход на страницу профиля"/>
-    </a>
-    {{> search/search }}
-    <ul class="chat-page__list">
-      {{#each chat.info}}
-        {{> chat/chat }}
-      {{/each}}
-    </ul>
-  </aside>
+  {{> chat-aside/chat-aside }}
   <p class="chat-page__text">Выберите чат чтобы отправить сообщение</p>
 </main>
