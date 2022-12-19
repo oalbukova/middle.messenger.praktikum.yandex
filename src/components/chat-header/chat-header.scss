@@ -35,12 +35,16 @@
     margin: auto 0;
     display: flex;
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 
   &__img {
     width: 3px;
     height: 16px;
-    background-image: url("/static/images/menu.svg");
+    background-image: url('/static/images/menu.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

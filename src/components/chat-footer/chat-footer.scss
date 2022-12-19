@@ -12,11 +12,15 @@
     cursor: pointer;
     width: 28px;
     height: 28px;
-    background-image: url("/static/images/go.svg");
+    background-image: url('/static/images/go.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     background-color: inherit;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 
   &__file-btn {
@@ -27,7 +31,7 @@
     cursor: pointer;
     width: 26px;
     height: 35px;
-    background-image: url("/static/images/file.svg");
+    background-image: url('/static/images/file.svg');
     background-color: inherit;
     background-position: center;
     background-repeat: no-repeat;
