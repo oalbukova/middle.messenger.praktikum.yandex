@@ -1,0 +1,62 @@
+.message {
+  border-radius: var(--border-radius);
+  padding: 11px;
+  max-width: 45%;
+  min-width: 30%;
+  width: fit-content;
+  margin-block-end: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  &_incoming {
+    background-color: rgba(148, 148, 148, 0.2);
+  }
+
+  &_outgoing {
+    background-color: rgba(101, 176, 16, 0.2);
+    align-self: flex-end;
+    align-items: flex-end;
+    margin-right: 20px;
+  }
+
+  &__text {
+    color: var(--color-text);
+  }
+
+  &__time-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__time {
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 5px;
+
+    &_incoming {
+      color: var(--color-subtitle);
+    }
+
+    &_outgoing {
+      color: var(--color-border);
+    }
+
+    &_src {
+      color: var(--color-clean);
+      padding: 5px 15px;
+      background-color: var(--color-subtitle);
+      border-radius: var(--border-radius);
+      width: min-content;
+      bottom: 16px;
+      right: 16px;
+      position: absolute;
+    }
+  }
+}
