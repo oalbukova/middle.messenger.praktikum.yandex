@@ -1,12 +1,12 @@
 .chat {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid var(--color-border);
   padding: 15px 10px;
+  border-top: 1px solid var(--color-border);
   cursor: pointer;
 
   &_active {
-    background-color: rgba(101, 176, 16, 0.2);
+    background-color: rgb(101 176 16 / 20%);
   }
 }
 
@@ -14,13 +14,14 @@
   display: flex;
 
   &__avatar {
-    width: 47px;
-    height: 47px;
+    width: 54px;
+    height: 54px;
+    margin: auto 10px auto 0;
     object-fit: cover;
     object-position: center;
-    margin: auto 10px auto 0;
     margin-inline-end: 10px;
   }
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -28,8 +29,8 @@
   }
 
   &__name {
+    margin: 0 0 5px;
     font-weight: 700;
-    margin: 0 0 5px 0;
   }
 
   &__text-container {
@@ -37,26 +38,26 @@
   }
 
   &__person {
-    font-weight: 700;
     margin: 0 5px 0 0;
+    font-weight: 700;
   }
 
   &__text {
-    -webkit-line-clamp: 2;
     display: -webkit-box;
-    -webkit-box-orient: vertical;
+    margin: 0;
     overflow: hidden;
     color: var(--color-subtitle);
-    margin: 0;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   &__text-small {
     width: 319px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin: 0 5px 0 0;
+    overflow: hidden;
     color: var(--color-subtitle);
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__time-wrapper {
@@ -67,19 +68,19 @@
   }
 
   &__time {
-    color: var(--color-subtitle);
     margin: 0 0 0 auto;
+    color: var(--color-subtitle);
     text-align: center;
   }
 
   &__count {
+    display: flex;
     width: 25px;
     height: 25px;
-    color: var(--color-clean);
-    border-radius: 50%;
-    background-color: var(--color-border);
     margin: 0 0 0 auto;
-    display: flex;
+    color: var(--color-clean);
+    background-color: var(--color-border);
+    border-radius: 50%;
   }
 
   &__count-text {

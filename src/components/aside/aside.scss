@@ -1,17 +1,17 @@
 .aside {
   display: flex;
   width: 50px;
+  background-color: rgb(101 176 16 / 50%);
   border-right: 1px solid #65b010;
-  background-color: rgba(101, 176, 16, 0.5);
 
   &__btn {
-    background-image: url(/static/images/back-btn.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     width: 40px;
     height: 40px;
     margin: auto;
+    background-image: url(/static/images/back-btn.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     cursor: pointer;
 
     &:hover {

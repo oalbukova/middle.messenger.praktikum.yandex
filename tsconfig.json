@@ -2,17 +2,15 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
+    "rootDir": "./src",
+    "baseUrl": "./src",
     "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "skipLibCheck": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "typeRoots": ["node_modules/@types", "typings/app.d.ts"]
   }
 }

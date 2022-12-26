@@ -1,29 +1,29 @@
 .link {
-  cursor: pointer;
-  color: var(--color-border);
-  text-decoration: none;
   width: max-content;
   margin: 0 auto;
+  color: var(--color-border);
+  text-decoration: none;
   border: none;
+  cursor: pointer;
 
   &:hover {
-    opacity: 0.5;
     text-decoration: underline;
+    opacity: 0.5;
   }
 
   &_outlined {
-    color: var(--color-clean);
-    border-radius: 11px;
-    border: 1px solid var(--color-clean);
     padding: 12px 32px;
+    color: var(--color-clean);
+    border: 1px solid var(--color-clean);
+    border-radius: 11px;
   }
 
   &_contained {
-    border: none;
-    color: var(--color-clean);
-    border-radius: 11px;
     padding: 12px 32px;
+    color: var(--color-clean);
     background-color: var(--color-border);
+    border: none;
+    border-radius: 11px;
     margin-block: 10px 20px;
   }
 }

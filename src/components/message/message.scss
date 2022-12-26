@@ -16,11 +16,11 @@
   }
 
   &_incoming {
-    background-color: rgba(148, 148, 148, 0.2);
+    background-color: rgb(148 148 148 / 20%);
   }
 
   &_outgoing {
-    background-color: rgba(101, 176, 16, 0.2);
+    background-color: rgb(101 176 16 / 20%);
     align-self: flex-end;
     align-items: flex-end;
     margin-right: 20px;

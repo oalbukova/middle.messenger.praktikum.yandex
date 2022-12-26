@@ -17,8 +17,8 @@
     "dist/*",
     "node_modules",
     ".parcel-cache",
-    ".cache",
     ".gitignore",
-    ".github"
+    ".github",
+    ".vscode"
   ]
 }

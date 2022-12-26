@@ -7,17 +7,19 @@
   width: var(--full);
   min-height: var(--full);
   box-sizing: border-box;
+  margin: auto;
 
   &__content {
-    background-image: url('/static/images/404.png');
+    background-image: url('../../../static/images/404.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     min-height: 100vh;
-    width: var(--full);
+    width: 1513px;
     display: flex;
     flex-direction: column;
     position: relative;
+    width: 1513px;
   }
 }
 

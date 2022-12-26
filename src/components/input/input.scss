@@ -4,13 +4,13 @@
   flex-direction: column;
 
   &__input {
-    cursor: pointer;
+    padding: 14px 16px;
     color: var(--color-text);
-    pointer-events: auto;
-    outline: none;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
-    padding: 14px 16px;
+    outline: none;
+    cursor: pointer;
+    pointer-events: auto;
 
     &_type_error {
       border: 1px solid var(--color-err);
@@ -21,12 +21,12 @@
     }
 
     &:hover {
-      box-shadow: 5px 5px 5px rgba(148, 148, 148, 0.3);
+      box-shadow: 5px 5px 5px rgb(148 148 148 / 30%);
     }
 
     &:disabled {
-      opacity: 0.5;
       cursor: auto;
+      opacity: 0.5;
       pointer-events: none;
     }
   }
