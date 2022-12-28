@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2022",
     "module": "commonjs",
     "rootDir": "./src",
     "baseUrl": "./src",
@@ -12,5 +12,6 @@
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
     "typeRoots": ["node_modules/@types", "typings/app.d.ts"]
-  }
+  },
+  "include": ["src", "src/declaration.d.ts"]
 }

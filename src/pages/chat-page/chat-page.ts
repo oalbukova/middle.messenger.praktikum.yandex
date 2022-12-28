@@ -11,7 +11,7 @@ export class ChatPage extends Block {
       <section class="chat-page">
         {{{ChatAside}}}
         <div class="chat-page__wrapper">
-          {{ChatHeader}}}
+          {{{ChatHeader}}}
           {{{ChatContent}}}
           {{{ChatFooter}}}
         </div>

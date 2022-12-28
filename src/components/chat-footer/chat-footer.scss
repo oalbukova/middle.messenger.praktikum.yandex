@@ -1,22 +1,22 @@
 .chat-footer {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
   position: relative;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
 
   &__btn {
-    border: none;
-    outline: none;
-    margin: auto 0 auto 10px;
     display: flex;
-    cursor: pointer;
     width: 28px;
     height: 28px;
-    background-image: url('/static/images/go.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    margin: auto 0 auto 10px;
     background-color: inherit;
+    background-image: url('/static/images/go.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    outline: none;
+    cursor: pointer;
 
     &:hover {
       opacity: 0.5;
@@ -24,23 +24,23 @@
   }
 
   &__file-btn {
-    border: none;
-    outline: none;
-    margin: auto 15px auto 0;
     display: flex;
-    cursor: pointer;
     width: 26px;
     height: 35px;
-    background-image: url('/static/images/file.svg');
+    margin: auto 15px auto 0;
     background-color: inherit;
-    background-position: center;
+    background-image: url('/static/images/file.svg');
     background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
+    border: none;
+    outline: none;
+    cursor: pointer;
     margin-inline-end: 20px;
   }
 
   &__input {
-    margin-block-start: 20px;
     width: var(--full);
+    margin-block-start: 20px;
   }
 }

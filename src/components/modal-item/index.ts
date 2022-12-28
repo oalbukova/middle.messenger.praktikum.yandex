@@ -1,1 +1,1 @@
-export * from "./modal-item";
+export * from './modal-item';

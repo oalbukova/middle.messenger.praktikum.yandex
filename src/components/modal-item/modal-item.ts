@@ -10,6 +10,7 @@ import './modal-item.scss';
 export class ModalItem extends Block {
   constructor(props: IModalItemProps) {
     super({ ...props });
+    console.log(props.src);
   }
 
   render() {

@@ -1,9 +1,9 @@
-interface Links {
+interface ILinks {
   title: string;
   href: string;
 }
 
-export const links: Links[] = [
+export const links: ILinks[] = [
   {
     title: 'Регистрация',
     href: '/sign-up',

@@ -5,17 +5,12 @@ import Block from '../../core/Block';
 import './chat-header.scss';
 
 export class ChatHeader extends Block {
-
   render() {
     // language=hbs
     return `
       <header class="chat-header">
         <div class="chat-header__info">
-          <img
-            class="chat-header__avatar"
-            src="/static/images/avatar.png"
-            alt="фото контакта"
-          />
+          <div class="chat-header__avatar"></div>
           <p class="chat-header__name">Марина</p>
         </div>
         <button class="chat-header__btn">

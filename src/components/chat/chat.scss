@@ -17,8 +17,10 @@
     width: 54px;
     height: 54px;
     margin: auto 10px auto 0;
-    object-fit: cover;
-    object-position: center;
+    background-image: url('../../../static/images/avatar.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     margin-inline-end: 10px;
   }
 

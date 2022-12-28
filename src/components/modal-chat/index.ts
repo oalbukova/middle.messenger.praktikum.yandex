@@ -1,1 +1,1 @@
-export * from "./modal-chat";
+export * from './modal-chat';

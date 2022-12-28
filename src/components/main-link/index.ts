@@ -1,1 +1,1 @@
-export * from "./main-link";
+export * from './main-link';

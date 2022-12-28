@@ -9,7 +9,7 @@ export class ChatNotSelectedPage extends Block {
     // language=hbs
     return `
       <section class="chat-page">
-        {{{ChatAside}}}
+        {{{ChatAside }}}
         <p class="chat-page__text">Выберите чат чтобы отправить сообщение</p>
       </section>
     `;

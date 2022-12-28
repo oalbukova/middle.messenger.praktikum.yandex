@@ -25,7 +25,7 @@ export class SignUpPage extends Block {
             {{/with}}
           {{/each}}
           {{{Button text="Зарегистрироваться"}}}
-          {{{Link text="Вход" href="/src/pages/sign-in/sign-in.hbs"}}}
+          {{{Link text="Вход" href="/sign-in/"}}}
         </form>
       </section>
     `;

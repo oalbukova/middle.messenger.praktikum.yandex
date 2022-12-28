@@ -1,4 +1,4 @@
-interface Inputs {
+interface IInputs {
   type: string;
   placeholder: string;
   name: string;
@@ -6,7 +6,7 @@ interface Inputs {
   value: string;
 }
 
-export const profileInputs: Inputs[] = [
+export const profileInputs: IInputs[] = [
   {
     type: 'text',
     placeholder: 'имя',

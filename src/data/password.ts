@@ -7,20 +7,20 @@ interface IInputs {
   errorMsg: string;
 }
 
-export const inputs: IInputs[] = [
+export const passwordInputs: IInputs[] = [
   {
-    type: 'text',
-    placeholder: 'имя',
-    name: 'login',
-    id: 'login',
+    type: 'password',
+    placeholder: 'старый_пароль',
+    name: 'oldPassword',
+    id: 'oldPassword',
     required: true,
     errorMsg: 'Поле обязательно для заполнения',
   },
   {
     type: 'password',
-    placeholder: 'пароль',
-    name: 'password',
-    id: 'password',
+    placeholder: 'новый_пароль',
+    name: 'newPassword',
+    id: 'newPassword',
     required: true,
     errorMsg: 'Поле обязательно для заполнения',
   },

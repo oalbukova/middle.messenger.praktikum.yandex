@@ -20,25 +20,25 @@
     position: absolute;
     top: 60%;
     left: 0;
-    transform: translateY(-50%);
-    background-image: url('../../../static/images/auth-left.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 521px;
     width: 393px;
+    height: 521px;
+    background-image: url('../../../static/images/auth-left.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: translateY(-50%);
   }
 
   &__image-right {
     position: absolute;
     top: 60%;
     right: 0;
-    transform: translateY(-50%);
-    background-image: url('../../../static/images/auth-right.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 507px;
     width: 957px;
+    height: 507px;
+    background-image: url('../../../static/images/auth-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: translateY(-50%);
   }
 }

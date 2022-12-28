@@ -1,11 +1,11 @@
 .chat-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  padding-block: 10px;
+  width: var(--full);
   height: max-content;
   border-bottom: 1px solid var(--color-border);
-  width: var(--full);
-  position: relative;
+  padding-block: 10px;
 
   &__info {
     display: flex;
@@ -14,26 +14,28 @@
   &__avatar {
     width: 47px;
     height: 57px;
-    object-fit: cover;
-    object-position: center;
     margin: auto 10px auto 0;
+    background-image: url('../../../static/images/avatar.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     margin-inline-end: 10px;
   }
 
   &__name {
-    font-weight: 700;
     margin: auto 0;
+    font-weight: 700;
   }
 
   &__btn {
+    display: flex;
     width: 25px;
     height: 25px;
-    background-color: inherit;
-    border-radius: 50%;
-    border: none;
-    outline: none;
     margin: auto 0;
-    display: flex;
+    background-color: inherit;
+    border: none;
+    border-radius: 50%;
+    outline: none;
     cursor: pointer;
 
     &:hover {
@@ -44,10 +46,10 @@
   &__img {
     width: 3px;
     height: 16px;
-    background-image: url('/static/images/menu.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
     margin: auto;
+    background-image: url('/static/images/menu.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
 }

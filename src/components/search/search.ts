@@ -9,7 +9,7 @@ export class Search extends Block {
     // language=hbs
     return `
       <div class="search">
-        <img class="search__icon" src="/static/images/search.svg" alt="поиск"/>
+        <div class="search__icon"></div>
         <input class="search__input" type="search" placeholder="Поиск">
       </div>
     `;

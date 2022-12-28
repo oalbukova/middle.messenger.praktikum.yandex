@@ -38,7 +38,13 @@ import {
 } from './components';
 
 // data
-import { links, inputs, signUpInputs, profileInputs } from './data';
+import {
+  links,
+  inputs,
+  signUpInputs,
+  profileInputs,
+  passwordInputs,
+} from './data';
 
 registerComponent(Aside);
 registerComponent(Avatar);
@@ -86,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       break;
     case '/change-password':
-      renderDOM(new ChangePasswordPage());
+      renderDOM(new ChangePasswordPage({ passwordInputs }));
       break;
     case '/chat-page':
       renderDOM(new ChatPage());
@@ -103,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     case '/not-found':
       renderDOM(new NotFoundPage());
       break;
-    // default:
-    //   renderDOM(new NotFoundPage());
+    default:
+      renderDOM(new NotFoundPage());
   }
 });

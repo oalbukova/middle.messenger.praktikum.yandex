@@ -1,4 +1,4 @@
-interface Inputs {
+interface IInputs {
   type: string;
   placeholder: string;
   name: string;
@@ -7,7 +7,7 @@ interface Inputs {
   errorMsg: string;
 }
 
-export const signUpInputs: Inputs[] = [
+export const signUpInputs: IInputs[] = [
   {
     type: 'text',
     placeholder: 'имя',

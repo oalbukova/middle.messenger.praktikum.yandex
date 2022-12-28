@@ -30,12 +30,12 @@
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translateY(-50%);
-    background-image: url('../../../static/images/signup-right.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 599px;
     width: 740px;
+    height: 599px;
+    background-image: url('../../../static/images/signup-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: translateY(-50%);
   }
 }
