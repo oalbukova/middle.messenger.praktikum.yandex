@@ -1,32 +1,44 @@
 .sign-up {
-  display: flex;
-  width: var(--full);
   position: relative;
-  margin: auto;
-  height: 100vh;
+  display: flex;
   box-sizing: border-box;
+  width: var(--full);
+  height: 100vh;
+  margin: auto;
 
   &__form {
-    display: flex;
-    flex-direction: column;
     position: relative;
     z-index: 20;
-    margin: auto 0 auto 25%;
+    display: flex;
+    flex-direction: column;
     width: var(--full);
     max-width: 400px;
+    margin: auto 0 auto 30%;
   }
 
   &__image-left {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     left: 0;
+    width: 393px;
+    height: 521px;
+    background-image: url('../../../static/images/auth-left.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: translateY(-50%);
   }
 
   &__image-right {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     right: 0;
+    width: 599px;
+    height: 740px;
+    background-image: url('../../../static/images/signup-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: translateY(-50%);
   }
 }

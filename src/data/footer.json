@@ -1,8 +1,0 @@
-{
-  "input": {
-    "type": "text",
-    "placeholder": "Сообщение",
-    "name": "message",
-    "id": "message"
-  }
-}
