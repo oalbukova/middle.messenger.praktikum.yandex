@@ -11,7 +11,6 @@ export class OnboardingPage extends Block {
   constructor({ links }: IOnboardingPageProps) {
     super({ links });
   }
-
   render() {
     // language=hbs
     return `
