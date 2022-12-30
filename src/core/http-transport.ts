@@ -60,6 +60,7 @@ class HTTPTransport {
       }
     });
   };
+  
   get: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.GET });
   };

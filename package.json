@@ -8,8 +8,8 @@
     "start": "npm run build && node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix",
-    "stylelint": "stylelint src/**/*.{css,scss}",
-    "stylelint:fix": "stylelint src/**/*.{css,scss} --fix --custom-syntax postcss-scss",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "prettier": "prettier --write src/**/*.{js,ts,scss}"
   },
   "repository": {
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "1.0.9",
-    "@parcel/transformer-sass": "2.8.0",
+    "@parcel/transformer-sass": "^2.8.0",
     "@typescript-eslint/eslint-plugin": "5.46.1",
     "@typescript-eslint/parser": "5.46.1",
     "eslint": "8.29.0",
@@ -65,15 +65,10 @@
     "precss": "4.0.0",
     "prettier": "2.8.1",
     "stylelint": "14.16.0",
-    "stylelint-config-prettier": "9.0.4",
-    "stylelint-config-rational-order": "0.1.2",
-    "stylelint-config-standard": "29.0.0",
-    "stylelint-order": "5.0.0",
-    "stylelint-prettier": "2.0.0",
-    "stylelint-scss": "4.3.0",
+    "stylelint-config-prettier-scss": "0.0.1",
+    "stylelint-config-standard-scss": "6.1.0",
     "ts-node": "10.9.1",
-    "typescript": "4.9.4",
-    "postcss-scss": "4.0.6"
+    "typescript": "4.9.4"
   },
   "dependencies": {
     "express": "4.18.1",
