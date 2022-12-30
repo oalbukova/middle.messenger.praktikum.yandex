@@ -12,7 +12,7 @@ type TRequestOptions = {
   timeout?: number;
 };
 
-type HTTPMethod = (url: string, options?: TRequestOptions) => Promise<unknown>
+type HTTPMethod = (url: string, options?: TRequestOptions) => Promise<unknown>;
 
 type TQueryStringifyData = Record<string, string | number>;
 
@@ -60,7 +60,7 @@ class HTTPTransport {
       }
     });
   };
-  
+
   get: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.GET });
   };
