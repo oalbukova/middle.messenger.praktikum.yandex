@@ -1,10 +1,12 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // styles
 import './message.scss';
 
 export class Message extends Block {
+  static componentName = 'Message';
+
   render() {
     // language=hbs
     return `

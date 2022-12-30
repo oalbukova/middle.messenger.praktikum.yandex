@@ -1,6 +1,5 @@
 export * from './profile';
 export * from './main';
-export * from './sign-in';
 export * from './sign-up';
 export * from './password';
 export * from './chat';

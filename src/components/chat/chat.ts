@@ -1,9 +1,11 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // styles
 import './chat.scss';
 export class Chat extends Block {
+  static componentName = "Chat";
+
   render() {
     // language=hbs
     return `

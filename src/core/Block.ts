@@ -16,6 +16,8 @@ export default class Block<P extends object = any> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
+  static componentName: string;
+
   public id = nanoid(6);
   private readonly _meta: BlockMeta;
 
@@ -26,7 +28,7 @@ export default class Block<P extends object = any> {
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
-  protected refs: { [key: string]: HTMLElement } = {};
+  refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();

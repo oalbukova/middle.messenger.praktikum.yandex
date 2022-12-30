@@ -1,10 +1,12 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // styles
 import './modal-delete.scss';
 
 export class ModalDelete extends Block {
+  static componentName = 'ModalDelete';
+
   render() {
     // language=hbs
     return `

@@ -1,8 +1,8 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // data
-import { buttons } from '../../data';
+import { buttons } from 'data';
 
 // types
 import { IModalChat } from './modal-chat.types';
@@ -11,6 +11,8 @@ import { IModalChat } from './modal-chat.types';
 import './modal-chat.scss';
 
 export class ModalChat extends Block {
+  static componentName = 'ModalChat';
+
   render() {
     // language=hbs
     return `

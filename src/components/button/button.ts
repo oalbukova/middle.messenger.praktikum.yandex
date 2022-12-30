@@ -1,5 +1,5 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // types
 import { IButtonProps } from './button.types';
@@ -8,18 +8,16 @@ import { IButtonProps } from './button.types';
 import './button.scss';
 
 export class Button extends Block {
-  constructor(props: IButtonProps) {
-    const onClick = (e: MouseEvent) => {
-      console.log('Button clicked');
-      e.preventDefault();
-    };
+  static componentName = "Button";
+
+  constructor({onClick, ...props}: IButtonProps) {
     super({ ...props, events: { click: onClick } });
   }
 
   render() {
     // language=hbs
     return `
-      <button class="button {{#if modificator}}button_{{modificator}}{{/if}}" type="submit">{{text}}</button>
+      <button class="button click=onClick {{#if modificator}}button_{{modificator}}{{/if}}" type="submit">{{text}}</button>
     `;
   }
 }

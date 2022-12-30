@@ -1,10 +1,12 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // styles
 import './modal-add.scss';
 
 export class ModalAdd extends Block {
+  static componentName = 'ModalAdd';
+
   render() {
     // language=hbs
     return `

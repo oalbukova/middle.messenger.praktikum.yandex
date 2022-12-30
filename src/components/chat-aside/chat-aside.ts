@@ -1,8 +1,8 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // data
-import { info } from '../../data';
+import { info } from 'data';
 
 // types
 import { IChatAsideProps, IChatEl } from './chat-aside.types';
@@ -11,6 +11,8 @@ import { IChatAsideProps, IChatEl } from './chat-aside.types';
 import './chat-aside.scss';
 
 export class ChatAside extends Block {
+  static componentName = "ChatAside";
+
   constructor({ ...props }: IChatAsideProps) {
     super({ ...props });
   }

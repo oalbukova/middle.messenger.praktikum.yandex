@@ -1,5 +1,5 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // types
 import { IModalItemProps } from './modal-item.types';
@@ -8,6 +8,8 @@ import { IModalItemProps } from './modal-item.types';
 import './modal-item.scss';
 
 export class ModalItem extends Block {
+  static componentName = 'ModalItem';
+
   constructor(props: IModalItemProps) {
     super({ ...props });
     console.log(props.src);

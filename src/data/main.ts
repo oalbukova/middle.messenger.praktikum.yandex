@@ -6,34 +6,34 @@ interface ILinks {
 export const links: ILinks[] = [
   {
     title: 'Регистрация',
-    href: '/sign-up',
+    href: 'signup',
   },
   {
     title: 'Авторизация',
-    href: '/sign-in',
+    href: 'signin',
   },
   {
     title: 'Профиль',
-    href: '/profile',
+    href: './profile',
   },
   {
     title: 'Смена пароля',
-    href: '/change-password',
+    href: './change-password',
   },
   {
     title: 'Чат (активный диалог) ',
-    href: '/chat-page',
+    href: './chat-page',
   },
   {
     title: 'Чат',
-    href: '/chat-not-selected',
+    href: './chat-not-selected',
   },
   {
     title: 'Ошибка 404',
-    href: '/not-found',
+    href: './not-found',
   },
   {
     title: 'Ошибка 500',
-    href: '/server-err',
+    href: './server-err',
   },
 ];

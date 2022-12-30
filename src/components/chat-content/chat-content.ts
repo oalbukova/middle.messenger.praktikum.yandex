@@ -1,8 +1,8 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // data
-import { contentInfo } from '../../data';
+import { contentInfo } from 'data';
 
 // types
 import { IChatContentProps, IChatContent } from './chat-content.types';
@@ -11,6 +11,8 @@ import { IChatContentProps, IChatContent } from './chat-content.types';
 import './chat-content.scss';
 
 export class ChatContent extends Block {
+  static componentName = "ChatContent";
+
   constructor({ ...props }: IChatContentProps) {
     super({ ...props });
   }

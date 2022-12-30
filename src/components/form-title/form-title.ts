@@ -1,5 +1,5 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // types
 import { IFormTitleProps } from './form-title.types';
@@ -8,6 +8,8 @@ import { IFormTitleProps } from './form-title.types';
 import './form-title.scss';
 
 export class FormTitle extends Block {
+  static componentName = 'FormTitle';
+
   constructor(props: IFormTitleProps) {
     super({ ...props });
   }

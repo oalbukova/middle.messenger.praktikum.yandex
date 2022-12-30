@@ -1,10 +1,12 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // styles
 import './avatar.scss';
 
 export class Avatar extends Block {
+  static componentName = "Avatar";
+
   render() {
     // language=hbs
     return `

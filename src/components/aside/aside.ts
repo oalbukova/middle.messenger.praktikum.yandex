@@ -1,5 +1,5 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // types
 import { IAsideProps } from './aside.types';
@@ -8,6 +8,8 @@ import { IAsideProps } from './aside.types';
 import './aside.scss';
 
 export class Aside extends Block {
+  static componentName = "Aside";
+  
   constructor(props: IAsideProps) {
     super({ ...props });
   }

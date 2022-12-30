@@ -17,3 +17,5 @@ export * from './modal-delete';
 export * from './modal-file';
 export * from './modal-item';
 export * from './search';
+export * from './error';
+export * from './controlled-input';

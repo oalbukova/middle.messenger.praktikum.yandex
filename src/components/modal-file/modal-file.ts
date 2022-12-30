@@ -1,8 +1,8 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // data
-import { fileButtons } from '../../data';
+import { fileButtons } from 'data';
 
 // types
 import { IModalFile } from './modal-file.types';
@@ -11,6 +11,8 @@ import { IModalFile } from './modal-file.types';
 import './modal-file.scss';
 
 export class ModalFile extends Block {
+  static componentName = 'ModalFile';
+
   render() {
     // language=hbs
     return `

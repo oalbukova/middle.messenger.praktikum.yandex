@@ -1,8 +1,8 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // data
-import { footerInput } from '../../data';
+import { footerInput } from 'data';
 
 // types
 import { IChatFooterProps, IChatFooter } from './chat-footer.types';
@@ -11,6 +11,7 @@ import { IChatFooterProps, IChatFooter } from './chat-footer.types';
 import './chat-footer.scss';
 
 export class ChatFooter extends Block {
+  static componentName = 'ChatFooter';
   constructor({ ...props }: IChatFooterProps) {
     super({ ...props });
   }

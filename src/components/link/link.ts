@@ -1,5 +1,5 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // types
 import { ILinkProps } from './link.types';
@@ -8,6 +8,8 @@ import { ILinkProps } from './link.types';
 import './link.scss';
 
 export class Link extends Block {
+  static componentName = 'Link';
+
   constructor(props: ILinkProps) {
     super({ ...props });
   }

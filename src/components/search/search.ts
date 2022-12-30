@@ -1,10 +1,12 @@
 // core
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 // styles
 import './search.scss';
 
 export class Search extends Block {
+  static componentName = 'Search';
+
   render() {
     // language=hbs
     return `

@@ -35,16 +35,12 @@ import {
   ModalFile,
   ModalItem,
   Search,
+  ControlledInput,
+  ErrorComponent,
 } from './components';
 
 // data
-import {
-  links,
-  inputs,
-  signUpInputs,
-  profileInputs,
-  passwordInputs,
-} from './data';
+import { links, profileInputs, passwordInputs } from './data';
 
 registerComponent(Aside);
 registerComponent(Avatar);
@@ -65,6 +61,8 @@ registerComponent(ModalDelete);
 registerComponent(ModalFile);
 registerComponent(ModalItem);
 registerComponent(Search);
+registerComponent(ControlledInput);
+registerComponent(ErrorComponent);
 
 const path: string = window.location.pathname;
 
@@ -78,18 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       break;
     case '/sign-in':
-      renderDOM(
-        new SignInPage({
-          inputs,
-        })
-      );
+      renderDOM(new SignInPage());
       break;
     case '/sign-up':
-      renderDOM(
-        new SignUpPage({
-          signUpInputs,
-        })
-      );
+      renderDOM(new SignUpPage());
       break;
     case '/change-password':
       renderDOM(new ChangePasswordPage({ passwordInputs }));
