@@ -4,23 +4,9 @@
   flex-shrink: 0;
   justify-content: space-between;
 
-  &__btn {
+  &__form {
     display: flex;
-    width: 28px;
-    height: 28px;
-    margin: auto 0 auto 10px;
-    background-color: inherit;
-    background-image: url('/static/images/go.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    border: none;
-    outline: none;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.5;
-    }
+    width: var(--full);
   }
 
   &__file-btn {

@@ -2,9 +2,10 @@
 import { renderDOM, registerComponent } from './core';
 
 // pages
+import SignInPage from './pages/sign-in';
 import {
   OnboardingPage,
-  SignInPage,
+  // SignInPage,
   ChangePasswordPage,
   ChatPage,
   NotFoundPage,
@@ -37,10 +38,11 @@ import {
   Search,
   ControlledInput,
   ErrorComponent,
+  ChatBtn
 } from './components';
 
 // data
-import { links, profileInputs, passwordInputs } from './data';
+import { links } from './data';
 
 registerComponent(Aside);
 registerComponent(Avatar);
@@ -63,13 +65,16 @@ registerComponent(ModalItem);
 registerComponent(Search);
 registerComponent(ControlledInput);
 registerComponent(ErrorComponent);
+registerComponent( ChatBtn);
 
-const path: string = window.location.pathname;
+
 
 document.addEventListener('DOMContentLoaded', () => {
+  const path: string = document.location.pathname;
   switch (path) {
     case '/':
       renderDOM(
+
         new OnboardingPage({
           links,
         })
@@ -82,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderDOM(new SignUpPage());
       break;
     case '/change-password':
-      renderDOM(new ChangePasswordPage({ passwordInputs }));
+      renderDOM(new ChangePasswordPage());
       break;
     case '/chat-page':
       renderDOM(new ChatPage());
@@ -91,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderDOM(new ChatNotSelectedPage());
       break;
     case '/profile':
-      renderDOM(new ProfilePage({ profileInputs }));
+      renderDOM(new ProfilePage());
       break;
     case '/server-err':
       renderDOM(new ServerErrPage());
@@ -99,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     case '/not-found':
       renderDOM(new NotFoundPage());
       break;
-    default:
-      renderDOM(new NotFoundPage());
+  //   default:
+  //     renderDOM(new NotFoundPage());
   }
 });

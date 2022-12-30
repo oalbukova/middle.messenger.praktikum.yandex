@@ -6,11 +6,11 @@ interface ILinks {
 export const links: ILinks[] = [
   {
     title: 'Регистрация',
-    href: 'signup',
+    href: './sign-up',
   },
   {
     title: 'Авторизация',
-    href: 'signin',
+    href: './sign-in',
   },
   {
     title: 'Профиль',

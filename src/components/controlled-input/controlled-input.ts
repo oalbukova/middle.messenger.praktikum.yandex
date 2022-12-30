@@ -26,7 +26,7 @@ export class ControlledInput extends Block {
     // language=hbs
     return `
       <div class="controlled-input">
-        {{{Input ref="inputRef" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" onFocus=onFocus onBlur=onBlur onInput=onInput }}}
+        {{{Input ref="inputRef" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" onFocus=onFocus onBlur=onBlur }}}
         {{{ErrorComponent ref="errorRef" text=error }}}
       </div>
     `;

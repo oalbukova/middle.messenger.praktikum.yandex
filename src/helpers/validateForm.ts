@@ -24,7 +24,7 @@ export function validateForm(rules: IValidateRule[]) {
       if (value.length === 0) {
         errorMessage = 'Поле Имя должно быть заполнено';
         break;
-      } else if (value.match(/^[А-ЯЁA-Z][А-ЯЁA-Zа-яёa-z-]+$/)) {
+      } else if (!value.match(/^[А-ЯЁA-Z][А-ЯЁA-Zа-яёa-z-]+$/)) {
         errorMessage = 'Неверный формат поля Имя';
         break;
       }
@@ -34,7 +34,7 @@ export function validateForm(rules: IValidateRule[]) {
       if (value.length === 0) {
         errorMessage = 'Поле Фамилия должно быть заполнено';
         break;
-      } else if (value.match(/^[А-ЯЁA-Z][А-ЯЁA-Zа-яёa-z-]+$/)) {
+      } else if (!value.match(/^[А-ЯЁA-Z][А-ЯЁA-Zа-яёa-z-]+$/)) {
         errorMessage = 'Неверный формат поля Фамилия';
         break;
       }
@@ -48,7 +48,11 @@ export function validateForm(rules: IValidateRule[]) {
     }
 
     if (type === ValidateType.Login) {
-      if (value.length < 3 || value.length > 20) {
+      if (value.length === 0 ) {
+        errorMessage = 'Поле Логин должно быть заполнено';
+        break;
+      }
+      else if (value.length < 3 || value.length > 20) {
         errorMessage = 'Поле Логин должно содержать от 3 до 20 символов';
         break;
       } else if (!value.match(/^(?=.*[a-zA-Z])([a-zA-Z0-9-_]){3,20}$/)) {
@@ -58,7 +62,11 @@ export function validateForm(rules: IValidateRule[]) {
     }
 
     if (type === ValidateType.Password) {
-      if (value.length < 8 || value.length > 40) {
+      if (value.length === 0 ) {
+        errorMessage = 'Поле Пароль должно быть заполнено';
+        break;
+      }
+      else if (value.length < 8 || value.length > 40) {
         errorMessage = 'Поле Пароль должно содержать от 8 до 40 символов';
         break;
       } else if (!value.match(/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/)) {
@@ -82,7 +90,7 @@ export function validateForm(rules: IValidateRule[]) {
     if (type === ValidateType.Phone) {
       if (
         !value.match(
-          /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+          /^(\+)?[\d\- ]{10,15}$/
         )
       ) {
         errorMessage = 'Введите корректный номер телефона';

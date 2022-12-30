@@ -19,3 +19,4 @@ export * from './modal-item';
 export * from './search';
 export * from './error';
 export * from './controlled-input';
+export * from './chat-btn';
