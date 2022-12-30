@@ -1,9 +1,9 @@
 .error {
+  display: none;
   color: var(--color-err);
   font-size: 12px;
   line-height: 14px;
   margin-block-start: 6px;
-  display: none;
 
   &_visible {
     display: block;

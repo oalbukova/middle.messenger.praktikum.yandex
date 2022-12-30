@@ -8,9 +8,9 @@ import { IButtonProps } from './chat-btn.types';
 import './chat-btn.scss';
 
 export class ChatBtn extends Block {
-  static componentName = "ChatBtn";
+  static componentName = 'ChatBtn';
 
-  constructor({onClick, ...props}: IButtonProps) {
+  constructor({ onClick, ...props }: IButtonProps) {
     super({ ...props, events: { click: onClick } });
   }
 

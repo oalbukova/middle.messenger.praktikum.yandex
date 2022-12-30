@@ -5,7 +5,7 @@ import Block from 'core/Block';
 import './avatar.scss';
 
 export class Avatar extends Block {
-  static componentName = "Avatar";
+  static componentName = 'Avatar';
 
   render() {
     // language=hbs

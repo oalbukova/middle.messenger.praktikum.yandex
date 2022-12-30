@@ -10,7 +10,7 @@ import './input.scss';
 export class Input extends Block {
   static componentName = 'Input';
 
-  constructor({  onFocus, onBlur, ...props }: IInputProps) {
+  constructor({ onFocus, onBlur, ...props }: IInputProps) {
     super({
       ...props,
       events: { focus: onFocus, blur: onBlur },

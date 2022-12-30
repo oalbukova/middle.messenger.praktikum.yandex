@@ -8,8 +8,8 @@ import { IAsideProps } from './aside.types';
 import './aside.scss';
 
 export class Aside extends Block {
-  static componentName = "Aside";
-  
+  static componentName = 'Aside';
+
   constructor(props: IAsideProps) {
     super({ ...props });
   }

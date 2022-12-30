@@ -11,7 +11,7 @@ import { IChatAsideProps, IChatEl } from './chat-aside.types';
 import './chat-aside.scss';
 
 export class ChatAside extends Block {
-  static componentName = "ChatAside";
+  static componentName = 'ChatAside';
 
   constructor({ ...props }: IChatAsideProps) {
     super({ ...props });

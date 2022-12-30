@@ -2,10 +2,9 @@
 import { renderDOM, registerComponent } from './core';
 
 // pages
-import SignInPage from './pages/sign-in';
 import {
   OnboardingPage,
-  // SignInPage,
+  SignInPage,
   ChangePasswordPage,
   ChatPage,
   NotFoundPage,
@@ -38,7 +37,7 @@ import {
   Search,
   ControlledInput,
   ErrorComponent,
-  ChatBtn
+  ChatBtn,
 } from './components';
 
 // data
@@ -65,16 +64,13 @@ registerComponent(ModalItem);
 registerComponent(Search);
 registerComponent(ControlledInput);
 registerComponent(ErrorComponent);
-registerComponent( ChatBtn);
-
-
+registerComponent(ChatBtn);
 
 document.addEventListener('DOMContentLoaded', () => {
   const path: string = document.location.pathname;
   switch (path) {
     case '/':
       renderDOM(
-
         new OnboardingPage({
           links,
         })
@@ -104,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     case '/not-found':
       renderDOM(new NotFoundPage());
       break;
-  //   default:
-  //     renderDOM(new NotFoundPage());
+    default:
+      renderDOM(new NotFoundPage());
   }
 });

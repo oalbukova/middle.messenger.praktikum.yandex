@@ -11,7 +11,7 @@ import { IChatContentProps, IChatContent } from './chat-content.types';
 import './chat-content.scss';
 
 export class ChatContent extends Block {
-  static componentName = "ChatContent";
+  static componentName = 'ChatContent';
 
   constructor({ ...props }: IChatContentProps) {
     super({ ...props });

@@ -1,6 +1,6 @@
 export interface IControlledInputProps {
-  onBlur?: ()=> void;
-  type: "text" | "password" | "email";
+  onBlur?: () => void;
+  type: 'text' | 'password' | 'email';
   name: string;
   placeholder: string;
   value?: string;

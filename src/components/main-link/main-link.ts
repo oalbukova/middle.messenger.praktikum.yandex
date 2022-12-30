@@ -8,7 +8,7 @@ import { IMainLinkProps } from './main-link.types';
 import './main-link.scss';
 
 export class MainLink extends Block {
-static componentName = "MainLink";
+  static componentName = 'MainLink';
 
   constructor(props: IMainLinkProps) {
     super({ ...props });

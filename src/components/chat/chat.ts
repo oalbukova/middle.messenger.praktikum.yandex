@@ -4,7 +4,7 @@ import Block from 'core/Block';
 // styles
 import './chat.scss';
 export class Chat extends Block {
-  static componentName = "Chat";
+  static componentName = 'Chat';
 
   render() {
     // language=hbs
