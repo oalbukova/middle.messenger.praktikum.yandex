@@ -6,6 +6,7 @@ import './not-found.scss';
 
 export class NotFoundPage extends Block {
   render() {
+    
     // language=hbs
     return `
       <section class="not-found">
