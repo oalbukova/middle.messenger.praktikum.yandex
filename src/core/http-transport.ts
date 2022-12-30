@@ -12,6 +12,8 @@ type TRequestOptions = {
   timeout?: number;
 };
 
+type HTTPMethod = (url: string, options?: TRequestOptions) => Promise<unknown>
+
 type TQueryStringifyData = Record<string, string | number>;
 
 function queryStringify(data: TQueryStringifyData) {
@@ -58,16 +60,16 @@ class HTTPTransport {
       }
     });
   };
-  get = (url: string, options = {}) => {
+  get: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.GET });
   };
-  post = (url: string, options = {}) => {
+  post: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.POST });
   };
-  put = (url: string, options = {}) => {
+  put: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.PUT });
   };
-  delete = (url: string, options = {}) => {
+  delete: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.DELETE });
   };
 }
