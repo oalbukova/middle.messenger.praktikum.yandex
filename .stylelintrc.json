@@ -13,5 +13,13 @@
     "scss/at-import-partial-extension": null,
     "value-no-vendor-prefix": null,
     "no-duplicate-selectors": null
-  }
+  },
+  "ignoreFiles": [
+    "dist/*",
+    "node_modules",
+    ".parcel-cache",
+    ".gitignore",
+    ".github",
+    ".vscode"
+  ]
 }
