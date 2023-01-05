@@ -12,13 +12,13 @@ export enum ValidateType {
   message = 'message',
 }
 
+interface IFormData {
+  [key: string]: string;
+}
+
 interface IValidateRule {
   value: string;
   type: string;
-}
-
-interface IFormData {
-  [key: string]: string;
 }
 
 export function validateForm(rules: IValidateRule[]) {

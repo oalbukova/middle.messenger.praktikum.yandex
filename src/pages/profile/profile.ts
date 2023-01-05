@@ -25,12 +25,12 @@ export class ProfilePage extends Block {
           {{{FormTitle formTitle="Настройки профиля"}}}
           {{{Avatar}}}
           <p class="profile__name">Ольга</p>
-          {{{ControlledInput ref="first_name" type="text" name="first_name" placeholder="имя" }}}
-          {{{ControlledInput ref="second_name" type="text" name="second_name" placeholder="фамилия" }}}
-          {{{ControlledInput ref="display_name" type="text" name="display_name" placeholder="ник" }}}
-          {{{ControlledInput ref="login" type="text" name="login" placeholder="логин" }}}
-          {{{ControlledInput ref="email" type="email" name="email" placeholder="email" }}}
-          {{{ControlledInput ref="phone" type="tel" name="phone" placeholder="телефон" }}}
+          {{{ControlledInput ref="first_name" type="text" name="first_name" placeholder="имя" onBlur=onBlur }}}
+          {{{ControlledInput ref="second_name" type="text" name="second_name" placeholder="фамилия" onBlur=onBlur }}}
+          {{{ControlledInput ref="display_name" type="text" name="display_name" placeholder="ник" onBlur=onBlur }}}
+          {{{ControlledInput ref="login" type="text" name="login" placeholder="логин" onBlur=onBlur }}}
+          {{{ControlledInput ref="email" type="email" name="email" placeholder="email" onBlur=onBlur }}}
+          {{{ControlledInput ref="phone" type="tel" name="phone" placeholder="телефон" onBlur=onBlur }}}
           {{{Button text="Сохранить" onClick=onSubmit}}}
           {{{Link text="Изменить пароль" href="/change-password"}}}
         </form>

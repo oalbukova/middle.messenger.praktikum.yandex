@@ -2,7 +2,7 @@
 import Block from 'core/Block';
 
 // validate
-import { onHandleBlur, onHandleFocus } from 'helpers/validateForm';
+import { onHandleFocus } from 'helpers/validateForm';
 
 // types
 import { IControlledInputProps } from './controlled-input.types';

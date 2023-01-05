@@ -19,8 +19,8 @@ export class ChangePasswordPage extends Block {
           'input[name="newPassword"]'
         ) as HTMLInputElement;
 
-        const oldPasswordRef = this.refs.oldPasswordInputRef;
-        const newPasswordRef = this.refs.newPasswordInputRef;
+        const oldPasswordRef = this.refs.oldPassword;
+        const newPasswordRef = this.refs.newPassword;
 
         const errorOldPasswordMessage = validateForm([
           { type: ValidateType.password, value: oldPasswordEl.value },
@@ -51,14 +51,15 @@ export class ChangePasswordPage extends Block {
 
       onSubmit: (e: SubmitEvent) => {
         e.preventDefault();
+
         const oldPasswordEl = this.element?.querySelector(
           'input[name="oldPassword"]'
         ) as HTMLInputElement;
         const newPasswordEl = this.element?.querySelector(
           'input[name="newPassword"]'
         ) as HTMLInputElement;
-        const oldPasswordRef = this.refs.oldPasswordInputRef;
-        const newPasswordRef = this.refs.newPasswordInputRef;
+        const oldPasswordRef = this.refs.oldPassword;
+        const newPasswordRef = this.refs.newPassword;
 
         const errorOldPasswordMessage = validateForm([
           { type: ValidateType.password, value: oldPasswordEl.value },
@@ -87,12 +88,11 @@ export class ChangePasswordPage extends Block {
           }
         }
         if (!errorOldPasswordMessage && !errorNewPasswordMessage) {
-          console.log(!errorOldPasswordMessage && !errorNewPasswordMessage);
-          console.log(
-            'form ready to send to API.',
-            `oldPassword: ${oldPasswordEl.value},
-            newPassword: ${newPasswordEl.value}`
-          );
+          console.log({
+            oldPassword: oldPasswordEl.value,
+            newPassword: newPasswordEl.value,
+          });
+
           oldPasswordEl.value = '';
           newPasswordEl.value = '';
         }
