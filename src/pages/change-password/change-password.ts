@@ -104,7 +104,7 @@ export class ChangePasswordPage extends Block {
     // language=hbs
     return `
       <section class="change-password">
-        {{{Aside href="/profile"}}}
+        {{{Aside href="/settings"}}}
         <div class="change-password__image-right"></div>
         <form class="change-password__form">
           {{{FormTitle formTitle="Изменить пароль"}}}

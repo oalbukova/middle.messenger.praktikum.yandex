@@ -31,7 +31,7 @@ export class SignUpPage extends Block {
           {{{ControlledInput ref="password" type="password" name="password" placeholder="пароль" onBlur=onBlur }}}
           {{{ControlledInput ref="phone" type="tel" name="phone" placeholder="телефон" onBlur=onBlur }}}
           {{{Button text="Зарегистрироваться" onClick=onSubmit}}}
-          {{{Link text="Вход" href="/sign-in"}}}
+          {{{Link text="Вход" href="/"}}}
         </form>
       </section>
     `;

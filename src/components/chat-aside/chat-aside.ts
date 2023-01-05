@@ -21,7 +21,7 @@ export class ChatAside extends Block {
     // language=hbs
     return `
       <aside class="chat-aside">
-        <a class="chat-aside__profile-link" href="/profile">Профиль
+        <a class="chat-aside__profile-link" href="/settings">Профиль
           <button class="chat-aside__profile-btn"></button>
         </a>
         {{{Search}}}

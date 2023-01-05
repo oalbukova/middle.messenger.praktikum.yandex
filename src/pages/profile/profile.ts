@@ -19,7 +19,7 @@ export class ProfilePage extends Block {
     // language=hbs
     return `
       <section class="profile">
-        {{{Aside href="/chat-page"}}}
+        {{{Aside href="messenger"}}}
         <div class="profile__image-right"></div>
         <form class="profile__form">
           {{{FormTitle formTitle="Настройки профиля"}}}

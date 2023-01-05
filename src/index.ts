@@ -1,9 +1,8 @@
 // core
-import { renderDOM, registerComponent } from './core';
+import { registerComponent, Router } from './core';
 
 // pages
 import {
-  OnboardingPage,
   SignInPage,
   ChangePasswordPage,
   ChatPage,
@@ -16,7 +15,6 @@ import {
 
 // components
 import {
-  MainLink,
   Link,
   Button,
   Chat,
@@ -40,9 +38,6 @@ import {
   ChatBtn,
 } from './components';
 
-// data
-import { links } from './data';
-
 registerComponent(Aside);
 registerComponent(Avatar);
 registerComponent(Button);
@@ -54,7 +49,6 @@ registerComponent(ChatHeader);
 registerComponent(FormTitle);
 registerComponent(Input);
 registerComponent(Link);
-registerComponent(MainLink);
 registerComponent(Message);
 registerComponent(ModalAdd);
 registerComponent(ModalChat);
@@ -67,40 +61,15 @@ registerComponent(ErrorComponent);
 registerComponent(ChatBtn);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const path: string = document.location.pathname;
-  switch (path) {
-    case '/':
-      renderDOM(
-        new OnboardingPage({
-          links,
-        })
-      );
-      break;
-    case '/sign-in':
-      renderDOM(new SignInPage());
-      break;
-    case '/sign-up':
-      renderDOM(new SignUpPage());
-      break;
-    case '/change-password':
-      renderDOM(new ChangePasswordPage());
-      break;
-    case '/chat-page':
-      renderDOM(new ChatPage());
-      break;
-    case '/chat-not-selected':
-      renderDOM(new ChatNotSelectedPage());
-      break;
-    case '/profile':
-      renderDOM(new ProfilePage());
-      break;
-    case '/server-err':
-      renderDOM(new ServerErrPage());
-      break;
-    case '/not-found':
-      renderDOM(new NotFoundPage());
-      break;
-    default:
-      renderDOM(new NotFoundPage());
-  }
+  // const path: string = window.location.pathname;
+  Router.use('/', SignInPage)
+    .use('/sign-up', SignUpPage)
+    .use('/change-password', ChangePasswordPage)
+    .use('/messenger', ChatPage)
+    .use('/chat-not-selected', ChatNotSelectedPage)
+    .use('/settings', ProfilePage)
+    .use('/server-err', ServerErrPage)
+    .use('/not-found', NotFoundPage);
+
+  Router.start();
 });
