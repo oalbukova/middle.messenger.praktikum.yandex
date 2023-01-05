@@ -3,22 +3,22 @@
   margin-block-end: 20px;
 
   &__input {
-    cursor: pointer;
+    width: var(--full);
+    padding: 14px 14px 14px 35px;
     color: var(--color-text);
-    pointer-events: auto;
-    outline: none;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
-    width: var(--full);
+    outline: none;
+    cursor: pointer;
+    pointer-events: auto;
     margin-block-end: 10px;
-    padding: 14px 14px 14px 35px;
 
     &::placeholder {
       color: var(--color-subtitle);
     }
 
     &:hover {
-      box-shadow: 5px 5px 5px rgba(148, 148, 148, 0.3);
+      box-shadow: 5px 5px 5px rgb(148 148 148 / 30%);
     }
   }
 
@@ -28,5 +28,9 @@
     left: 10px;
     width: 20px;
     height: 20px;
+    background-image: url('../../../static/images/search.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
 }

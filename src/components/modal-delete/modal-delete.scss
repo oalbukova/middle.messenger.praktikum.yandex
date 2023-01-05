@@ -1,0 +1,68 @@
+.modal-delete {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 50px 30px;
+  overflow: hidden;
+  background-color: rgb(0 0 0 / 65%);
+  perspective: 1000px;
+  backdrop-filter: blur(8px);
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  &__paper {
+    position: relative;
+    justify-content: center;
+    width: 416px;
+    height: max-content;
+    margin: auto;
+    padding: 20px 30px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgb(169 188 153 / 35%);
+    backdrop-filter: blur(72px);
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin: auto 0;
+    padding: 0;
+    font-size: 0;
+    background-color: transparent;
+    background-image: url('/static/images/close.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__btn-container {
+    display: flex;
+    width: 100%;
+    margin: auto;
+  }
+}
