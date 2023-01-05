@@ -1,6 +1,9 @@
 // core
 import Block from 'core/Block';
 
+// validate
+import { onHandleBlur, onHandleFocus } from 'helpers/validateForm';
+
 // types
 import { IControlledInputProps } from './controlled-input.types';
 
@@ -13,12 +16,7 @@ export class ControlledInput extends Block {
   constructor(props: IControlledInputProps) {
     super({
       ...props,
-
-      onFocus: (e: FocusEvent) => {
-        const imputEl = e.target as HTMLInputElement;
-        this.refs.errorRef.setProps({ text: '' });
-        imputEl.classList.remove('input_type_error');
-      },
+      onFocus: (e: FocusEvent) => onHandleFocus(e, this.refs),
     });
   }
 

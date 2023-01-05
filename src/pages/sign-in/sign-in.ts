@@ -2,7 +2,7 @@
 import Block from 'core/Block';
 
 // validate
-import { validateForm, ValidateType } from 'helpers/validateForm';
+import { validateForm } from 'helpers/validateForm';
 
 // styles
 import './sign-in.scss';
@@ -11,83 +11,139 @@ export class SignInPage extends Block {
   constructor() {
     super();
     this.setProps({
-      onBlur: (e: Event) => {
-        const loginRef = this.refs.loginInputRef;
-        const passwordRef = this.refs.passwordInputRef;
-        const imputEl = e.target as HTMLInputElement;
-        const errorLoginMessage = validateForm([
-          { type: ValidateType.Login, value: imputEl.value },
-        ]);
+      // errors: [],
+      // onBlur: (e: Event) => {
+      //   const loginRef = this.refs.loginInputRef;
+      //   const passwordRef = this.refs.passwordInputRef;
+      //   const imputEl = e.target as HTMLInputElement;
+      //   const errorLoginMessage = validateForm([
+      //     { type: ValidateType.Login, value: imputEl.value },
+      //   ]);
 
-        const errorPasswordMessage = validateForm([
-          { type: ValidateType.Password, value: imputEl.value },
-        ]);
+      //   const errorPasswordMessage = validateForm([
+      //     { type: ValidateType.Password, value: imputEl.value },
+      //   ]);
 
-        if (imputEl.name === 'login') {
-          loginRef.refs.errorRef.setProps({
-            text: errorLoginMessage,
-          });
-          errorLoginMessage
-            ? imputEl.classList.add('input_type_error')
-            : imputEl.classList.remove('input_type_error');
-        }
+      //   if (imputEl.name === 'login') {
+      //     loginRef.refs.errorRef.setProps({
+      //       text: errorLoginMessage,
+      //     });
+      //     errorLoginMessage
+      //       ? imputEl.classList.add('input_type_error')
+      //       : imputEl.classList.remove('input_type_error');
+      //   }
 
-        if (imputEl.name === 'password') {
-          passwordRef.refs.errorRef.setProps({
-            text: errorPasswordMessage,
-          });
-          errorPasswordMessage
-            ? imputEl.classList.add('input_type_error')
-            : imputEl.classList.remove('input_type_error');
-        }
-      },
+      //   if (imputEl.name === 'password') {
+      //     passwordRef.refs.errorRef.setProps({
+      //       text: errorPasswordMessage,
+      //     });
+      //     errorPasswordMessage
+      //       ? imputEl.classList.add('input_type_error')
+      //       : imputEl.classList.remove('input_type_error');
+      //   }
+      // },
+      // onBlur: (e: Event) => {
+        // const imputEl = e.target as HTMLInputElement;
+        // const errorMessage = validateForm([
+        //   { type: imputEl.name, value: imputEl.value },
+        // ]);
+        // this.refs[imputEl.name].refs.errorRef.setProps({
+        //   text: errorMessage,
+        // });
+        // errorMessage
+        //   ? imputEl.classList.add('input_type_error')
+        //   : imputEl.classList.remove('input_type_error');
+
+      //   const inputList = Array.from(document.querySelectorAll('input'));
+      //   inputList.forEach((input) => {
+      //     const errorMessage = validateForm([
+      //       { type: input.name, value: input.value },
+      //     ]);
+
+      //     this.refs[input.name].refs.errorRef.setProps({
+      //       text: errorMessage,
+      //     });
+
+      //     errorMessage
+      //       ? input.classList.add('input_type_error')
+      //       : input.classList.remove('input_type_error');
+      //   });
+      // },
 
       onSubmit: (e: SubmitEvent) => {
         e.preventDefault();
-        const loginEl = this.element?.querySelector(
-          'input[name="login"]'
-        ) as HTMLInputElement;
-        const passwordEl = this.element?.querySelector(
-          'input[name="password"]'
-        ) as HTMLInputElement;
-        const loginRef = this.refs.loginInputRef;
-        const passwordRef = this.refs.passwordInputRef;
 
-        const errorLoginMessage = validateForm([
-          { type: ValidateType.Login, value: loginEl.value },
-        ]);
+        interface IFormData {
+          [key: string]: string;
+        }
 
-        const errorPasswordMessage = validateForm([
-          { type: ValidateType.Password, value: passwordEl.value },
-        ]);
+        let formData: IFormData = {};
+        let errors = [];
+        const inputList = Array.from(document.querySelectorAll('input'));
+        inputList.forEach((input) => {
+          const errorMessage = validateForm([
+            { type: input.name, value: input.value },
+          ]);
 
-        if (loginEl) {
-          loginRef.refs.errorRef.setProps({
-            text: errorLoginMessage,
+          this.refs[input.name].refs.errorRef.setProps({
+            text: errorMessage,
           });
-          errorLoginMessage
-            ? loginEl.classList.add('input_type_error')
-            : loginEl.classList.remove('input_type_error');
-        }
+          errorMessage
+            ? input.classList.add('input_type_error')
+            : input.classList.remove('input_type_error');
 
-        if (passwordEl.name === 'password') {
-          passwordRef.refs.errorRef.setProps({
-            text: errorPasswordMessage,
-          });
-          errorPasswordMessage
-            ? passwordEl.classList.add('input_type_error')
-            : passwordEl.classList.remove('input_type_error');
-        }
+          errorMessage && errors.push(errorMessage);
+          formData[input.name] = input.value;
+        });
 
-        if (!errorLoginMessage && !errorPasswordMessage) {
-          console.log(
-            'form ready to send to API.',
-            `login: ${loginEl.value},
-            password: ${passwordEl.value}`
-          );
-          loginEl.value = '';
-          passwordEl.value = '';
-        }
+        if (!errors.length)  {inputList.forEach((input) => (input.value = ''));
+
+      };
+
+        // const loginEl = this.element?.querySelector(
+        //   'input[name="login"]'
+        // ) as HTMLInputElement;
+        // const passwordEl = this.element?.querySelector(
+        //   'input[name="password"]'
+        // ) as HTMLInputElement;
+        // const loginRef = this.refs.loginInputRef;
+        // const passwordRef = this.refs.passwordInputRef;
+
+        // const errorLoginMessage = validateForm([
+        //   { type: ValidateType.login, value: loginEl.value },
+        // ]);
+
+        // const errorPasswordMessage = validateForm([
+        //   { type: ValidateType.password, value: passwordEl.value },
+        // ]);
+
+        // if (loginEl) {
+        //   loginRef.refs.errorRef.setProps({
+        //     text: errorLoginMessage,
+        //   });
+        //   errorLoginMessage
+        //     ? loginEl.classList.add('input_type_error')
+        //     : loginEl.classList.remove('input_type_error');
+        // }
+
+        // if (passwordEl.name === 'password') {
+        //   passwordRef.refs.errorRef.setProps({
+        //     text: errorPasswordMessage,
+        //   });
+        //   errorPasswordMessage
+        //     ? passwordEl.classList.add('input_type_error')
+        //     : passwordEl.classList.remove('input_type_error');
+        // }
+
+        // if (!errorLoginMessage && !errorPasswordMessage) {
+        //   console.log(
+        //     'form ready to send to API.',
+        //     `login: ${loginEl.value},
+        //     password: ${passwordEl.value}`
+        //   );
+        //   loginEl.value = '';
+        //   passwordEl.value = '';
+        // }
       },
     });
   }
@@ -100,8 +156,8 @@ export class SignInPage extends Block {
         <div class="sign-in__image-right"></div>
         <form class="sign-in__form" >
           {{{FormTitle formTitle="Авторизация"}}}
-          {{{ControlledInput ref="loginInputRef" type="text"  name="login" placeholder="логин" onBlur=onBlur  }}}
-          {{{ControlledInput ref="passwordInputRef" type="password" name="password" placeholder="пароль" onBlur=onBlur }}}
+          {{{ControlledInput ref="login"  type="text" name="login" placeholder="логин" }}}
+          {{{ControlledInput ref="password"  type="password" name="password" placeholder="пароль" }}}
           {{{Button text="Войти" onClick=onSubmit}}}
           {{{Link text="Еще не зарегистрированы?" href="/sign-up" }}}
         </form>

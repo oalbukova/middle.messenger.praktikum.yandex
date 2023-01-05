@@ -17,7 +17,7 @@ export class ChatBtn extends Block {
   render() {
     // language=hbs
     return `
-      <button type="submit" class="chat-btn" onClick=onSubmit></button>
+      <button type="submit" class="chat-btn" click=onClick></button>
     `;
   }
 }

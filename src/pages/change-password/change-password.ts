@@ -23,7 +23,7 @@ export class ChangePasswordPage extends Block {
         const newPasswordRef = this.refs.newPasswordInputRef;
 
         const errorOldPasswordMessage = validateForm([
-          { type: ValidateType.Password, value: oldPasswordEl.value },
+          { type: ValidateType.password, value: oldPasswordEl.value },
         ]);
 
         const errorNewPasswordMessage = 'Пароли не совпадают';
@@ -61,7 +61,7 @@ export class ChangePasswordPage extends Block {
         const newPasswordRef = this.refs.newPasswordInputRef;
 
         const errorOldPasswordMessage = validateForm([
-          { type: ValidateType.Password, value: oldPasswordEl.value },
+          { type: ValidateType.password, value: oldPasswordEl.value },
         ]);
 
         let errorNewPasswordMessage;
@@ -108,8 +108,8 @@ export class ChangePasswordPage extends Block {
         <div class="change-password__image-right"></div>
         <form class="change-password__form">
           {{{FormTitle formTitle="Изменить пароль"}}}
-          {{{ControlledInput ref="oldPasswordInputRef" type="password" name="oldPassword" placeholder="старый пароль" onBlur=onBlur }}}
-          {{{ControlledInput ref="newPasswordInputRef" type="password" name="newPassword" placeholder="новый пароль" onBlur=onBlur }}}
+          {{{ControlledInput ref="oldPassword" type="password" name="oldPassword" placeholder="старый пароль" onBlur=onBlur }}}
+          {{{ControlledInput ref="newPassword" type="password" name="newPassword" placeholder="новый пароль" onBlur=onBlur }}}
           {{{Button text="Сохранить" onClick=onSubmit}}}
         </form>
       </section>

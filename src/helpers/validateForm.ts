@@ -1,17 +1,24 @@
+// core
+import Block from 'core/Block';
+
 export enum ValidateType {
-  FirstName = 'first_name',
-  SecondName = 'second_name',
-  DisplayName = 'display_name',
-  Login = 'login',
-  Password = 'password',
-  Email = 'email',
-  Phone = 'phone',
-  Message = 'message',
+  first_name = 'first_name',
+  second_name = 'second_name',
+  display_name = 'display_name',
+  login = 'login',
+  password = 'password',
+  email = 'email',
+  phone = 'phone',
+  message = 'message',
 }
 
 interface IValidateRule {
   value: string;
-  type: ValidateType;
+  type: string;
+}
+
+interface IFormData {
+  [key: string]: string;
 }
 
 export function validateForm(rules: IValidateRule[]) {
@@ -20,7 +27,7 @@ export function validateForm(rules: IValidateRule[]) {
   for (let i = 0; i < rules.length; i++) {
     const { type, value } = rules[i];
 
-    if (type === ValidateType.FirstName) {
+    if (type === ValidateType.first_name) {
       if (value.length === 0) {
         errorMessage = 'Поле Имя должно быть заполнено';
         break;
@@ -30,7 +37,7 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.SecondName) {
+    if (type === ValidateType.second_name) {
       if (value.length === 0) {
         errorMessage = 'Поле Фамилия должно быть заполнено';
         break;
@@ -40,14 +47,14 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.DisplayName) {
+    if (type === ValidateType.display_name) {
       if (value.length === 0) {
         errorMessage = 'Поле Ник должно быть заполнено';
         break;
       }
     }
 
-    if (type === ValidateType.Login) {
+    if (type === ValidateType.login) {
       if (value.length === 0) {
         errorMessage = 'Поле Логин должно быть заполнено';
         break;
@@ -60,7 +67,7 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.Password) {
+    if (type === ValidateType.password) {
       if (value.length === 0) {
         errorMessage = 'Поле Пароль должно быть заполнено';
         break;
@@ -74,7 +81,7 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.Email) {
+    if (type === ValidateType.email) {
       if (
         !value.match(
           /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i
@@ -85,14 +92,14 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.Phone) {
+    if (type === ValidateType.phone) {
       if (!value.match(/^(\+)?[\d\- ]{10,15}$/)) {
         errorMessage = 'Введите корректный номер телефона';
         break;
       }
     }
 
-    if (type === ValidateType.Message) {
+    if (type === ValidateType.message) {
       if (!value || value.length === 0) {
         errorMessage = 'Поле Сообщение должно быть заполнено';
         break;
@@ -101,4 +108,53 @@ export function validateForm(rules: IValidateRule[]) {
   }
 
   return errorMessage;
+}
+
+export function onHandleBlur(e: Event, ref: { [key: string]: Block }) {
+  const imputEl = e.target as HTMLInputElement;
+  const errorMessage = validateForm([
+    { type: imputEl.name, value: imputEl.value },
+  ]);
+  ref[imputEl.name].refs.errorRef.setProps({
+    text: errorMessage,
+  });
+  errorMessage
+    ? imputEl.classList.add('input_type_error')
+    : imputEl.classList.remove('input_type_error');
+}
+
+export function onHandleFocus(e: Event, ref: { [key: string]: Block }) {
+  const imputEl = e.target as HTMLInputElement;
+  ref.errorRef.setProps({ text: '' });
+  imputEl.classList.remove('input_type_error');
+}
+
+export function onHandleSubmit(e: SubmitEvent, ref: { [key: string]: Block }) {
+  e.preventDefault();
+  let formData: IFormData = {};
+  let errors = [];
+  const inputList = Array.from(
+    document.querySelectorAll('.input')
+  ) as HTMLInputElement[];
+
+  inputList.forEach((input) => {
+    const errorMessage = validateForm([
+      { type: input.name, value: input.value },
+    ]);
+
+    ref[input.name].refs.errorRef.setProps({
+      text: errorMessage,
+    });
+    errorMessage
+      ? input.classList.add('input_type_error')
+      : input.classList.remove('input_type_error');
+
+    errorMessage && errors.push(errorMessage);
+    formData[input.name] = input.value;
+  });
+
+  if (!errors.length) {
+    inputList.forEach((input) => (input.value = ''));
+    console.log(formData);
+  }
 }
