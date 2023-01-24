@@ -1,8 +1,14 @@
 // core
 import Block from 'core/Block';
 
+// controller
+import AuthController from '../../controllers/AuthController';
+
 // validate
 import { onHandleBlur, onHandleSubmit } from 'helpers/validateForm';
+
+// types
+import { ISignInData } from '../../api/auth/auth.types';
 
 // styles
 import './sign-in.scss';
@@ -12,7 +18,11 @@ export class SignInPage extends Block {
     super();
     this.setProps({
       onBlur: (e: Event) => onHandleBlur(e, this.refs),
-      onSubmit: (e: SubmitEvent) => onHandleSubmit(e, this.refs),
+      onSubmit: (e: SubmitEvent) => {
+        const data: ISignInData | undefined = onHandleSubmit(e, this.refs);
+
+        data && AuthController.signin(data as ISignInData);
+      },
     });
   }
 

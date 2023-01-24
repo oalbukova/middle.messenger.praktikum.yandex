@@ -1,3 +1,5 @@
+import { queryStringify } from '../utils';
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -12,25 +14,22 @@ type TRequestOptions = {
   timeout?: number;
 };
 
-type HTTPMethod = (url: string, options?: TRequestOptions) => Promise<unknown>;
-
 type TQueryStringifyData = Record<string, string | number>;
+type HTTPMethod  = <Response>(url: string, options?: TRequestOptions) => Promise<Response >;
 
-function queryStringify(data: TQueryStringifyData) {
-  return Object.entries(data).reduce(
-    (acc, e, i) => `${acc}${i > 0 ? '&' : '?'}${e[0]}=${e[1]}`,
-    ''
-  );
-}
+export class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+  protected endpoint: string;
 
-class HTTPTransport {
-  request = (url: string, options: TRequestOptions) => {
-    const {
-      method = METHODS.GET,
-      headers = {},
-      data,
-      timeout = 5000,
-    } = options;
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
+
+  private request<Response>(
+    url: string,
+    options: TRequestOptions
+  ): Promise<Response> {
+    const { method, data, headers = {}, timeout = 5000 } = options;
 
     const reqUrl =
       method === METHODS.GET && data
@@ -39,7 +38,7 @@ class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, reqUrl);
+      xhr.open(method!, reqUrl);
       xhr.timeout = timeout;
 
       Object.entries(headers).forEach(([key, value]) =>
@@ -47,32 +46,53 @@ class HTTPTransport {
       );
 
       xhr.onload = function () {
-        resolve(xhr);
+        resolve(xhr.response);
       };
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
+
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
+
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
+    });
+  }
+
+  get: HTTPMethod = (url: string, options: TRequestOptions = {}) => {
+    url = options.data ? url + queryStringify(options.data) : url;
+    return this.request(this.endpoint + url, {
+      ...options,
+      method: METHODS.GET,
     });
   };
 
-  get: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.GET });
+  post: HTTPMethod = (url: string, options: TRequestOptions = {}) => {
+    return this.request(this.endpoint + url, {
+      ...options,
+      method: METHODS.POST,
+    });
   };
-  post: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.POST });
+
+  put: HTTPMethod = (url: string, options: TRequestOptions = {}) => {
+    return this.request(this.endpoint + url, {
+      ...options,
+      method: METHODS.PUT,
+    });
   };
-  put: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.PUT });
-  };
-  delete: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.DELETE });
+
+  delete: HTTPMethod = (url: string, options: TRequestOptions = {}) => {
+    return this.request(this.endpoint + url, {
+      ...options,
+      method: METHODS.DELETE,
+    });
   };
 }
-
-export default new HTTPTransport();

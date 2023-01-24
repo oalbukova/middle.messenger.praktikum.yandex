@@ -1,0 +1,17 @@
+export const defaultState: AppState = {
+  appIsInited: false,
+  screen: null,
+  isLoading: false,
+  loginFormError: null,
+  registerFormError: null,
+  profileFormError: null,
+  changePasswordFormError: null,
+  user: null,
+  chats: [],
+  users: [],
+  messages: [],
+  token: null,
+  intervalId: null,
+  socket: null,
+  firstMessage: 0,
+};

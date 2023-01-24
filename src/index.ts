@@ -1,6 +1,9 @@
 // core
 import { registerComponent, Router } from './core';
 
+// controllers
+import AuthController from '../src/controllers/AuthController';
+
 // pages
 import {
   SignInPage,
@@ -36,6 +39,7 @@ import {
   ControlledInput,
   ErrorComponent,
   ChatBtn,
+  Loader,
 } from './components';
 
 registerComponent(Aside);
@@ -59,9 +63,9 @@ registerComponent(Search);
 registerComponent(ControlledInput);
 registerComponent(ErrorComponent);
 registerComponent(ChatBtn);
+registerComponent(Loader);
 
-document.addEventListener('DOMContentLoaded', () => {
-  // const path: string = window.location.pathname;
+document.addEventListener('DOMContentLoaded', async () => {
   Router.use('/', SignInPage)
     .use('/sign-up', SignUpPage)
     .use('/change-password', ChangePasswordPage)
@@ -71,5 +75,25 @@ document.addEventListener('DOMContentLoaded', () => {
     .use('/server-err', ServerErrPage)
     .use('/not-found', NotFoundPage);
 
-  Router.start();
+  let isProtectedRoute = true;
+
+  switch (window.location.pathname) {
+    case '/sign-up':
+    case '/':
+      isProtectedRoute = false;
+      break;
+  }
+
+  try {
+    await AuthController.getUser();
+    Router.start();
+    if (!isProtectedRoute) {
+      Router.go('/messenger');
+    }
+  } catch (error) {
+    Router.start();
+    if (isProtectedRoute) {
+      Router.go('/');
+    }
+  }
 });

@@ -1,4 +1,3 @@
-export * from './main';
 export * from './chat';
 export * from './user';
 export * from './modal';

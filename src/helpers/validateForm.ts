@@ -6,14 +6,11 @@ export enum ValidateType {
   second_name = 'second_name',
   display_name = 'display_name',
   login = 'login',
-  password = 'password',
+  oldPassword = 'oldPassword',
+  newPassword = 'newPassword',
   email = 'email',
   phone = 'phone',
   message = 'message',
-}
-
-interface IFormData {
-  [key: string]: string;
 }
 
 interface IValidateRule {
@@ -67,7 +64,7 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.password) {
+    if (type === ValidateType.oldPassword || type === ValidateType.newPassword) {
       if (value.length === 0) {
         errorMessage = 'Поле Пароль должно быть заполнено';
         break;
@@ -131,8 +128,9 @@ export function onHandleFocus(e: Event, ref: { [key: string]: Block }) {
 
 export function onHandleSubmit(e: SubmitEvent, ref: { [key: string]: Block }) {
   e.preventDefault();
-  let formData: IFormData = {};
+  let formData: any = {};
   let errors = [];
+  let isValid = false;
   const inputList = Array.from(
     document.querySelectorAll('.input')
   ) as HTMLInputElement[];
@@ -155,6 +153,10 @@ export function onHandleSubmit(e: SubmitEvent, ref: { [key: string]: Block }) {
 
   if (!errors.length) {
     inputList.forEach((input) => (input.value = ''));
-    console.log(formData);
+    isValid = true;
+  }
+
+  if (isValid) {
+    return formData;
   }
 }

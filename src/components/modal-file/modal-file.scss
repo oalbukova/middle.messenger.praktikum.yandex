@@ -13,4 +13,9 @@
   border-radius: 16px;
   box-shadow: 0 0 30px rgb(169 188 153 / 35%);
   backdrop-filter: blur(72px);
+  display: none;
+
+  &_active {
+    display: block;
+  }
 }

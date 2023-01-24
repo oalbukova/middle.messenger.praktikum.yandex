@@ -2,7 +2,13 @@
 import Block from 'core/Block';
 
 // validate
-import { validateForm, ValidateType } from 'helpers/validateForm';
+import { onHandleSubmit, onHandleBlur } from 'helpers/validateForm';
+
+// controller
+import UserController from '../../controllers/UserController';
+
+// types
+import { IUpdatePassword } from '../../api/user/user.types';
 
 // styles
 import './change-password.scss';
@@ -11,91 +17,12 @@ export class ChangePasswordPage extends Block {
   constructor() {
     super();
     this.setProps({
-      onBlur: () => {
-        const oldPasswordEl = this.element?.querySelector(
-          'input[name="oldPassword"]'
-        ) as HTMLInputElement;
-        const newPasswordEl = this.element?.querySelector(
-          'input[name="newPassword"]'
-        ) as HTMLInputElement;
-
-        const oldPasswordRef = this.refs.oldPassword;
-        const newPasswordRef = this.refs.newPassword;
-
-        const errorOldPasswordMessage = validateForm([
-          { type: ValidateType.password, value: oldPasswordEl.value },
-        ]);
-
-        const errorNewPasswordMessage = 'Пароли не совпадают';
-
-        if (oldPasswordEl) {
-          oldPasswordRef.refs.errorRef.setProps({
-            text: errorOldPasswordMessage,
-          });
-          errorOldPasswordMessage
-            ? oldPasswordEl.classList.add('input_type_error')
-            : oldPasswordEl.classList.remove('input_type_error');
-        }
-
-        if (newPasswordEl) {
-          if (newPasswordEl.value !== oldPasswordEl.value) {
-            newPasswordRef.refs.errorRef.setProps({
-              text: errorNewPasswordMessage,
-            });
-            errorNewPasswordMessage
-              ? newPasswordEl.classList.add('input_type_error')
-              : newPasswordEl.classList.remove('input_type_error');
-          }
-        }
-      },
+      onBlur: (e: Event) => onHandleBlur(e, this.refs),
 
       onSubmit: (e: SubmitEvent) => {
-        e.preventDefault();
-
-        const oldPasswordEl = this.element?.querySelector(
-          'input[name="oldPassword"]'
-        ) as HTMLInputElement;
-        const newPasswordEl = this.element?.querySelector(
-          'input[name="newPassword"]'
-        ) as HTMLInputElement;
-        const oldPasswordRef = this.refs.oldPassword;
-        const newPasswordRef = this.refs.newPassword;
-
-        const errorOldPasswordMessage = validateForm([
-          { type: ValidateType.password, value: oldPasswordEl.value },
-        ]);
-
-        let errorNewPasswordMessage;
-
-        if (oldPasswordEl) {
-          oldPasswordRef.refs.errorRef.setProps({
-            text: errorOldPasswordMessage,
-          });
-          errorOldPasswordMessage
-            ? oldPasswordEl.classList.add('input_type_error')
-            : oldPasswordEl.classList.remove('input_type_error');
-        }
-
-        if (newPasswordEl) {
-          if (newPasswordEl.value !== oldPasswordEl.value) {
-            errorNewPasswordMessage = 'Пароли не совпадают';
-            newPasswordRef.refs.errorRef.setProps({
-              text: errorNewPasswordMessage,
-            });
-            errorNewPasswordMessage
-              ? newPasswordEl.classList.add('input_type_error')
-              : newPasswordEl.classList.remove('input_type_error');
-          }
-        }
-        if (!errorOldPasswordMessage && !errorNewPasswordMessage) {
-          console.log({
-            oldPassword: oldPasswordEl.value,
-            newPassword: newPasswordEl.value,
-          });
-
-          oldPasswordEl.value = '';
-          newPasswordEl.value = '';
-        }
+        const data: IUpdatePassword | undefined = onHandleSubmit(e, this.refs);
+      
+        data && UserController.updatePassword(data as IUpdatePassword);
       },
     });
   }

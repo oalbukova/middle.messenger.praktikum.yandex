@@ -1,11 +1,37 @@
 // core
 import Block from 'core/Block';
 
+// controller
+import AuthController from '../../controllers/AuthController';
+
+import ChatsController from '../../controllers/ChatsController';
+
+import store from '../../core/store';
+import { withStore } from '../../hoc/withStore';
+
 // styles
 import './chat-page.scss';
 
-export class ChatPage extends Block {
+export class ChatPageBase extends Block {
+  constructor() {
+    super()
+    ChatsController.fetchChats();
+    // MessageControll.getMessages();
+    this.setProps({
+      chats: store.getState().chatList,
+
+    });
+    // store.on("update", () => {
+    //   this.setProps(store.getState());
+    // });
+  }
+
+
   render() {
+
+
+
+    console.log(this.props)
     // language=hbs
     return `
       <section class="chat-page">
@@ -19,3 +45,7 @@ export class ChatPage extends Block {
     `;
   }
 }
+
+const withChats = withStore((state) => ({ ...state.user }));
+export const ChatPage = withChats(ChatPageBase);
+

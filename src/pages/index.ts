@@ -1,5 +1,4 @@
 export * from './sign-in';
-export * from './onboarding';
 export * from './change-password';
 export * from './chat-page';
 export * from './not-found';

@@ -2,11 +2,12 @@ import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 
-interface BlockMeta<P = any> {
-  props: P;
-}
-
 type Events = Values<typeof Block.EVENTS>;
+
+export interface BlockClass<P extends object = any> extends Function {
+  new (props: P): Block<P>;
+  componentName?: string;
+}
 
 export default class Block<P extends object = any> {
   static EVENTS = {
@@ -19,23 +20,18 @@ export default class Block<P extends object = any> {
   static componentName: string;
 
   public id = nanoid(6);
-  private readonly _meta: BlockMeta;
 
-  protected _element: Nullable<HTMLElement> = null;
-  protected readonly props: P;
-  protected children: { [id: string]: Block } = {};
+  _element: HTMLElement | null = null;
+  props: P;
+  children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
-  protected state: any = {};
+  state: any = {};
   refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
-
-    this._meta = {
-      props,
-    };
 
     this.getStateFromProps(props);
 
@@ -60,7 +56,7 @@ export default class Block<P extends object = any> {
     this._element = this._createDocumentElement('div');
   }
 
-  protected getStateFromProps(props: any): void {
+  getStateFromProps(props: any): void {
     this.state = {};
   }
 
@@ -119,7 +115,7 @@ export default class Block<P extends object = any> {
     this._addEvents();
   }
 
-  protected render(): string {
+  render(): string {
     return '';
   }
 
@@ -226,3 +222,4 @@ export default class Block<P extends object = any> {
     this.getContent().style.display = 'none';
   }
 }
+
