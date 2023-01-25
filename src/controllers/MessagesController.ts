@@ -1,4 +1,4 @@
-import store from '../core/store';
+import store, { StoreEvents } from  '../core/store';
 import WSTransport, { WSTransportEvents } from '../utils/WSTransport';
 
 class MessagesController {
@@ -78,7 +78,7 @@ class MessagesController {
 
     messagesToAdd = [...currentMessages, ...messagesToAdd];
 
-    store.set(`messages.${id}`, messagesToAdd);
+    store.set(`messages.${id}`, messagesToAdd, StoreEvents.MessagesUpdated);
   }
 
   private onClose(id: number) {

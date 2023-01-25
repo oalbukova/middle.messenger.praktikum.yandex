@@ -14,6 +14,7 @@ export default class Block<P extends object = any> {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
   } as const;
 
@@ -22,7 +23,7 @@ export default class Block<P extends object = any> {
   public id = nanoid(6);
 
   _element: HTMLElement | null = null;
-  props: P;
+  props: Readonly<P>;
   children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
@@ -33,16 +34,24 @@ export default class Block<P extends object = any> {
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
 
-    this.getStateFromProps(props);
-
-    this.props = this._makePropsProxy(props || ({} as P));
-    this.state = this._makePropsProxy(this.state);
+    this.props = props || ({} as P);
 
     this.eventBus = () => eventBus;
 
     this._registerEvents(eventBus);
 
     eventBus.emit(Block.EVENTS.INIT, this.props);
+  }
+
+  _checkInDom() {
+    const elementInDOM = document.body.contains(this._element);
+
+    if (elementInDOM) {
+      setTimeout(() => this._checkInDom(), 1000);
+      return;
+    }
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
   }
 
   _registerEvents(eventBus: EventBus<Events>) {
@@ -56,20 +65,25 @@ export default class Block<P extends object = any> {
     this._element = this._createDocumentElement('div');
   }
 
-  getStateFromProps(props: any): void {
-    this.state = {};
-  }
-
   init() {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
   _componentDidMount(props: P) {
+    this._checkInDom();
+
     this.componentDidMount(props);
   }
 
   componentDidMount(props: P) {}
+
+  _componentWillUnmount() {
+    this.eventBus().destroy();
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {}
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -82,13 +96,16 @@ export default class Block<P extends object = any> {
   componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
-
-  setProps = (nextProps: P) => {
-    if (!nextProps) {
+  setProps = (nextPartialProps: Partial<P>) => {
+    if (!nextPartialProps) {
       return;
     }
 
-    Object.assign(this.props, nextProps);
+    const prevProps = this.props;
+    const nextProps = { ...prevProps, ...nextPartialProps };
+    this.props = nextProps;
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
   };
 
   setState = (nextState: any) => {
@@ -142,9 +159,12 @@ export default class Block<P extends object = any> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
+        const oldTarget = { ...target };
         target[prop] = value;
+        if (JSON.stringify(oldTarget[prop]) !== JSON.stringify(value)) {
+          self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        }
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {
@@ -222,4 +242,3 @@ export default class Block<P extends object = any> {
     this.getContent().style.display = 'none';
   }
 }
-

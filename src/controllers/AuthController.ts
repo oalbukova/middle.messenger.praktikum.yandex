@@ -2,6 +2,7 @@ import API, { AuthAPI } from '../api/auth/auth-api';
 import { ISignUpData, ISignInData } from '../api/auth/auth.types';
 import router from '../core/router';
 import store from '../core/store';
+import ChatsController from "./ChatsController"
 
 class AuthController {
   private readonly api: AuthAPI;
@@ -14,6 +15,7 @@ class AuthController {
     try {
       await this.api.signIn(data);
       await this.getUser();
+      await ChatsController.fetchChats();
       router.go('/messenger');
     } catch (error: any) {
       if (error.message == 'User already in system') {

@@ -2,6 +2,7 @@ export interface IChatsOption {
   offset?: number;
   limit?: number;
   title?: string;
+
 }
 
 export interface IToken {

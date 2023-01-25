@@ -15,15 +15,12 @@ import './chat-page.scss';
 export class ChatPageBase extends Block {
   constructor() {
     super()
-    ChatsController.fetchChats();
-    // MessageControll.getMessages();
-    this.setProps({
-      chats: store.getState().chatList,
-
-    });
-    // store.on("update", () => {
-    //   this.setProps(store.getState());
+    // ChatsController.fetchChats();
+    // // MessageControll.getMessages();
+    // this.setProps({
+    //   chats: () => store.getState().chats,
     // });
+
   }
 
 
@@ -31,7 +28,7 @@ export class ChatPageBase extends Block {
 
 
 
-    console.log(this.props)
+    // console.log(store.getState().chats)
     // language=hbs
     return `
       <section class="chat-page">

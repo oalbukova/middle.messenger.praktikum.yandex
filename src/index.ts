@@ -3,6 +3,7 @@ import { registerComponent, Router } from './core';
 
 // controllers
 import AuthController from '../src/controllers/AuthController';
+import ChatsController from '../src/controllers/ChatsController';
 
 // pages
 import {
@@ -20,7 +21,6 @@ import {
 import {
   Link,
   Button,
-  Chat,
   Aside,
   Avatar,
   ChatAside,
@@ -45,7 +45,6 @@ import {
 registerComponent(Aside);
 registerComponent(Avatar);
 registerComponent(Button);
-registerComponent(Chat);
 registerComponent(ChatAside);
 registerComponent(ChatContent);
 registerComponent(ChatFooter);
@@ -86,6 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     await AuthController.getUser();
+    await ChatsController.fetchChats();
     Router.start();
     if (!isProtectedRoute) {
       Router.go('/messenger');

@@ -15,9 +15,16 @@ class UserController {
     this.api = API;
   }
 
-  async search(data: ISearchUser) {
+  async search(data: ISearchUser, usersList?: any[]) {
+    if (!data.login) {
+      return null;
+    }
+
     try {
-      const res = await this.api.search(data);
+      let res = await this.api.search(data);
+      if (usersList) {
+        res = res.filter((x) => !usersList.find((y) => x.id === y.id));
+      }
       return res;
     } catch (error: any) {
       console.error('UserController.search error: ', error.message);

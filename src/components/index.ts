@@ -1,7 +1,6 @@
 export * from './aside';
 export * from './avatar';
 export * from './button';
-export * from './chat';
 export * from './chat-aside';
 export * from './chat-content';
 export * from './chat-footer';

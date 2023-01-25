@@ -15,7 +15,7 @@ import './sign-in.scss';
 
 export class SignInPage extends Block {
   constructor() {
-    super();
+    super({});
     this.setProps({
       onBlur: (e: Event) => onHandleBlur(e, this.refs),
       onSubmit: (e: SubmitEvent) => {

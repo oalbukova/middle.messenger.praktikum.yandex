@@ -1,32 +1,47 @@
-import { Block, store, StoreEvents } from 'core';
+import { Block } from '../core';
+import store, { StoreEvents } from '../core/store';
 import { isEqual } from '../utils';
-
-interface IState {
+interface State {
   user: User;
   chats: Chat[];
   messages: Record<number, Message[]>;
-  selectedChat?: number;
+  // selectedChat?: number;
+  // searchUser?: User[];
+  // modal?: string;
 }
 
-export function withStore(mapStateToProps: (state: IState) => any) {
+export function withStore(
+  mapStateToProps: (state: State) => Record<string, unknown>,
+  nameStoreEvent: any = StoreEvents.Updated,
+  isForceSetProps = false
+) {
   return function wrap(Component: typeof Block) {
-    return class extends Component {
+    let previousState: any = {};
+    return class WithStore extends Component {
+      // public static componentName = Component.name || Component.componentName;
+
       constructor(props: any) {
-        let state = mapStateToProps(store.getState());
+        previousState = mapStateToProps(store.getState());
 
-        super({ ...props, ...state });
+        super({ ...props, ...previousState });
 
-        store.on(StoreEvents.Updated, () => {
-          const newState = mapStateToProps(store.getState());
+        store.on(nameStoreEvent, this.storeEventHandler);
+      }
 
-          if (!isEqual(state, newState)) {
-            this.setProps({ ...newState });
-          }
+      storeEventHandler = () => {
+        const newState = mapStateToProps(store.getState());
 
-          state = newState;
-        });
+        if (!isEqual(previousState, newState) || isForceSetProps) {
+          previousState = newState;
+          this.setProps({
+            ...newState,
+          });
+        }
+      };
+
+      componentDidUnmount(): void {
+        store.off(nameStoreEvent, this.storeEventHandler);
       }
     };
   };
 }
-

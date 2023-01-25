@@ -1,9 +1,5 @@
 import BaseAPI from '../base-api';
-import {
-  IChatsOption,
-  IDeletedChatInfo,
-  IToken,
-} from './chats.types';
+import { IChatsOption, IDeletedChatInfo, IToken } from './chats.types';
 
 export class ChatsAPI extends BaseAPI {
   constructor() {
@@ -42,6 +38,15 @@ export class ChatsAPI extends BaseAPI {
     const res: IToken = await this.http.post(`/token/${id}`);
 
     return res?.token;
+  }
+
+  addChatAvatar(data: FormData): Promise<Chat> {
+    return this.http.put('/avatar', {
+      data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   }
 
   update = undefined;

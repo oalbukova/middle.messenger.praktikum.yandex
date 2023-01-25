@@ -12,7 +12,7 @@ export class ChatFooter extends Block {
   static componentName = 'ChatFooter';
 
   constructor() {
-    super();
+    super({});
     this.setProps({
       onBlur: (e: Event) => onHandleBlur(e, this.refs),
       onSubmit: (e: SubmitEvent) => {

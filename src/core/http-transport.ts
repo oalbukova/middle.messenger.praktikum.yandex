@@ -15,7 +15,7 @@ type TRequestOptions = {
 };
 
 type TQueryStringifyData = Record<string, string | number>;
-type HTTPMethod  = <Response>(url: string, options?: TRequestOptions) => Promise<Response >;
+type HTTPMethod  = <Response = void>(url: string, options?: TRequestOptions) => Promise<Response>;
 
 export class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';

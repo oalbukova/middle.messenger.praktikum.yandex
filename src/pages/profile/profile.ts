@@ -19,7 +19,7 @@ import './profile.scss';
 
 class ProfilePageBase extends Block {
   constructor() {
-    super();
+    super({});
     this.setProps({
       user: store.getState().user,
       onBlur: (e: Event) => onHandleBlur(e, this.refs),
@@ -60,4 +60,4 @@ class ProfilePageBase extends Block {
 }
 
 const withUser = withStore((state) => ({ ...state.user }));
-export const ProfilePage = withUser(ProfilePageBase);
+export const ProfilePage = withUser(ProfilePageBase as typeof Block);

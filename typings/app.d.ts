@@ -22,11 +22,11 @@ declare global {
   };
 
   export type User = {
-    id: number;
+    id?: number;
     login: string;
     first_name: string;
     second_name: string;
-    display_name: string;
+    display_name?: string;
     avatar: string;
     phone: string;
     email: string;
@@ -36,22 +36,21 @@ declare global {
     id: number;
     title: string;
     avatar: string | null;
-    created_by: number;
     unread_count: number;
     last_message: {
       user: User;
       time: string;
       content: string;
-      id: number;
     };
   };
 
   export type Message = {
+    id: number;
+    user_id: number;
     chat_id: number;
     time: string;
     type: string;
-    user_id: number;
-    content: string;
+    content: number;
     file?: {
       id: number;
       user_id: number;

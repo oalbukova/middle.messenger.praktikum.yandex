@@ -15,7 +15,7 @@ import './sign-up.scss';
 
 export class SignUpPage extends Block {
   constructor() {
-    super();
+    super({});
     this.setProps({
       onBlur: (e: Event) => onHandleBlur(e, this.refs),
 
