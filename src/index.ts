@@ -69,7 +69,6 @@ registerComponent(ModalButton);
 
 const router = new Router();
 const routesValues = Object.values(routes);
-
 document.addEventListener('DOMContentLoaded', async () => {
   router
     //@ts-ignore
