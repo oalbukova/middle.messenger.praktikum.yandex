@@ -93,7 +93,6 @@
   padding: 15px 10px;
   border-top: 1px solid var(--color-border);
   cursor: pointer;
-  // width: 400px;
 
   &_active {
     background-color: rgb(101 176 16 / 20%);
@@ -202,7 +201,7 @@
     background: inherit;
 
     &:hover {
-      opacity: .5;
+      opacity: 0.5;
     }
   }
 }
@@ -244,4 +243,3 @@
     color: var(--color-subtitle);
   }
 }
-
