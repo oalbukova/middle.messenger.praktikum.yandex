@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // types
 import { IAvatarProps } from './avvatar.types';
@@ -7,15 +7,11 @@ import { IAvatarProps } from './avvatar.types';
 // controllers
 import UserController from '../../controllers/UserController';
 
-// core
-import { Router } from '../../core';
-
 // images
 import avatarImg from '../../../static/images/avatar.png';
 
 // styles
 import './avatar.scss';
-
 
 export class Avatar extends Block {
   static componentName = 'Avatar';
@@ -29,11 +25,10 @@ export class Avatar extends Block {
       dafaultSrc: avatarImg,
       events: {
         change: (e: Event) => {
-          const target= e.target as HTMLInputElement;
+          const target = e.target as HTMLInputElement;
           const formData = new FormData();
           target.files && formData.append('avatar', target.files[0]);
           UserController.updateAvatar(formData);
-          Router.go('/messenger');
         },
       },
     });

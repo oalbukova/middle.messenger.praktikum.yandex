@@ -1,51 +1,37 @@
+// api
 import API, { UserAPI } from '../api/user/user-api';
-import {
-  IUpdateUser,
-  IUpdatePassword,
-  ISearchUser,
-} from '../api/user/user.types';
 
+// controller
 import AuthController from './AuthController';
-import router from '../core/router';
+
+// core
+import { Router, routes } from '../core';
+
+// type
+import { IUpdatePassword } from '../api/user/user.types';
 
 class UserController {
   private readonly api: UserAPI;
-
+  private router: Router;
   constructor() {
     this.api = API;
+    this.router = new Router();
   }
 
-  async search(data: ISearchUser, usersList?: any[]) {
-    if (!data.login) {
-      return null;
-    }
-
+  async search(login: string) {
     try {
-      let res = await this.api.search(data);
-      if (usersList) {
-        res = res.filter((x) => !usersList.find((y) => x.id === y.id));
-      }
-      return res;
-    } catch (error: any) {
-      console.error('UserController.search error: ', error.message);
+      return await this.api.search(login);
+    } catch (err: any) {
+      console.error('UserController.search error: ', err.message);
     }
   }
 
-  async readUser(id: number) {
-    try {
-      const res = await this.api.read(id);
-      return res;
-    } catch (error: any) {
-      console.error('UserController.read error: ', error.message);
-    }
-  }
-
-  async updateUser(data: IUpdateUser) {
+  async updateUser(data: User) {
     try {
       await this.api.updateProfile(data);
       await AuthController.getUser();
-    } catch (error: any) {
-      console.error('UserController.updateUser error: ', error.message);
+    } catch (err: any) {
+      console.error('UserController.updateUser error: ', err.message);
     }
   }
 
@@ -53,8 +39,8 @@ class UserController {
     try {
       await this.api.updateAvatar(data);
       await AuthController.getUser();
-    } catch (error: any) {
-      console.error('UserController.updateAvatar error: ', error.message);
+    } catch (err: any) {
+      console.error('UserController.updateAvatar error: ', err.message);
     }
   }
 
@@ -62,9 +48,9 @@ class UserController {
     try {
       await this.api.updatePassword(data);
       await AuthController.getUser();
-      router.go('/settings');
-    } catch (error: any) {
-      console.error('UserController.updatePassword error: ', error.message);
+      this.router.go(routes.settings);
+    } catch (err: any) {
+      console.error('UserController.updatePassword error: ', err.message);
     }
   }
 }

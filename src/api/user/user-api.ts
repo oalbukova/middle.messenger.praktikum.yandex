@@ -1,34 +1,33 @@
+// api
 import BaseAPI from '../base-api';
 
-import { IUpdateUser, IUpdatePassword, ISearchUser } from './user.types';
+//core
+import { ContentType } from '../../core';
+
+// types
+import { IUpdatePassword } from './user.types';
 
 export class UserAPI extends BaseAPI {
   constructor() {
     super('/user');
   }
 
-  search(data: ISearchUser): Promise<User[]> {
-    return this.http.post('/search', { data });
+  search(login: string): Promise<User[]> {
+    return this.http.post('/search', { login });
   }
 
   updateAvatar(data: FormData): Promise<User> {
-    return this.http.put('/profile/avatar', { data });
+    return this.http.put('/profile/avatar', data, ContentType.formData);
   }
-
-  updateProfile(data: IUpdateUser): Promise<User> {
-    return this.http.put('/profile', { data });
+  updateProfile(data: User): Promise<User> {
+    return this.http.put('/profile', data);
   }
-
-  read(id: number): Promise<User> {
-    return this.http.get('/user/' + id);
-}
-
 
   updatePassword(data: IUpdatePassword) {
-    return this.http.put('/password', { data });
+    return this.http.put('/password', data);
   }
 
-
+  read: undefined;
   create = undefined;
   update = undefined;
   delete = undefined;

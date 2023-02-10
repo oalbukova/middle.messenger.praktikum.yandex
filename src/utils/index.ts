@@ -1,7 +1,7 @@
-export { default as isEqual } from './isEqual';
-export { default as merge } from './merge';
-export { default as queryStringify } from './queryStringify';
-export { default as set } from './set';
+export * from './isEqual';
+export * from './merge';
+export * from './queryStringify';
+export * from './set';
 export * from './dateFormatter';
-export * from './debounce';
-
+export * from './isPlainObject';
+export * from './onModal';

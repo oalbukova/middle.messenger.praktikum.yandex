@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // types
 import { ISearchProps } from './search.types';
@@ -9,10 +9,10 @@ import './search.scss';
 
 export class Search extends Block {
   static componentName = 'Search';
-  constructor({ onInputSearchChat, ...props }: ISearchProps) {
+  constructor({ onChange, ...props }: ISearchProps) {
     super({
       ...props,
-      events: { input: onInputSearchChat },
+      events: { input: onChange },
     });
   }
   render() {
@@ -20,7 +20,7 @@ export class Search extends Block {
     return `
       <div class="search">
         <div class="search__icon"></div>
-        <input class="search__input" type="search" placeholder="Поиск"  autocomplete="off">
+        <input value="{{value}}" type="text" class="search__input" placeholder="Поиск">
       </div>
     `;
   }

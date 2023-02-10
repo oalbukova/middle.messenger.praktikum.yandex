@@ -1,3 +1,4 @@
 export interface ISearchProps {
-  onInputSearchChat?: () => void;
+  onChange?: () => void;
+  value?: string;
 }

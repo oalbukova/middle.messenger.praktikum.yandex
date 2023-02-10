@@ -2,7 +2,6 @@ export interface IChatsOption {
   offset?: number;
   limit?: number;
   title?: string;
-
 }
 
 export interface IToken {
@@ -17,4 +16,9 @@ export interface IDeletedChatInfo {
     avatar: string;
   };
 }
+
+export interface ICreateChatResponse {
+id: number;
+}
+
 

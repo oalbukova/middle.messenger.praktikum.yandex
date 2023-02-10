@@ -1,131 +1,151 @@
+// api
 import API, { ChatsAPI } from '../api/chats/chats-api';
-import { ISearchUser } from '../api/user/user.types';
-import store, { StoreEvents } from '../core/store';
-import MessagesController from './MessagesController';
-import UserController from './UserController';
+
+// core
+import { store, ChatWebSocket } from '../core';
+
+// utils
+import { dateFormater } from '../utils';
 
 export class ChatsController {
   private readonly api: ChatsAPI;
+
+  private webSocket: ChatWebSocket | null = null;
 
   constructor() {
     this.api = API;
   }
 
-  async create(title: string) {
-    await this.api.create(title);
-
-    await this.fetchChats();
-  }
-
-  async fetchChats() {
-    let chats: any;
-
+  async get(rewrite = false, title = '') {
     try {
-      chats = await this.api.read();
+      const chatList = await this.api.read(0, 50, title);
+      const chats: Record<string, Chat> = {};
 
-      const reasonText = chats.reason;
+      for (const chat of chatList) {
+        if (chat.last_message) {
+          chat.last_message.time = dateFormater(chat.last_message.time, 'chat');
+          chat.last_message.person =
+            store.getState().currentUser?.login === chat.last_message.user.login
+              ? 'Вы:'
+              : '';
+        }
 
-      if (reasonText) {
-        throw new Error(reasonText);
+        chat.user_list = await this.api.getUsers(chat.id);
+        chat.selected = store.getState().selected?.selectedChat === chat.id;
+        chats[chat.id] = chat;
       }
-
-      chats.map(async (chat: Chat) => {
-        const token = await this.getToken(chat.id);
-
-        await MessagesController.connect(chat.id, token);
-      });
-
-      delete store.getState().chats;
-
-      store.set('chats', chats, StoreEvents.ChatsUpdated);
-    } catch (error) {
-      console.log(error);
+      store.set('chats.chatList', chats, rewrite);
+    } catch (err: any) {
+      console.error('ChatsController.get error: ', err.message);
     }
-  }
-
-  async addUserToChat(id: number, userId: number) {
-    this.api.addUsers(id, [userId]);
-    await this.fetchChats();
-  }
-
-  async deleteUserFromChat(id: number, userId: number) {
-    await this.api.deleteUsers(id, [userId]);
-    this.fetchChats();
-  }
-
-  async delete(id: number) {
-    await this.api.delete(id);
-
-    this.fetchChats();
-    store.set('selectedChat', null, StoreEvents.SelectedChatUpdated);
-  }
-
-  getToken(id: number) {
-    return this.api.getToken(id);
-  }
-
-  async setSelectedChat(chatInfo: Chat) {
-    const selectedChat = {
-      id: chatInfo.id,
-      title: chatInfo.title,
-      avatar: chatInfo.avatar,
-      users: await this.getChatUsers(chatInfo.id),
-    };
-    delete store.getState().selectedChat;
-    store.set('selectedChat', selectedChat, StoreEvents.SelectedChatUpdated);
-  }
-
-  async setSelectedUsers(data: ISearchUser) {
-    const selectedUser = await UserController.search(data);
-
-    store.set('selectedUser', selectedUser![0]);
-  }
-
-  async addChatAvatar(id: number, avatarFormData: FormData) {
-    avatarFormData.append('chatId', id.toString());
-    const { avatar } = await this.api.addChatAvatar(avatarFormData);
-
-    await this.fetchChats();
-    store.set('selectedChat.avatar', avatar, StoreEvents.SelectedChatUpdated);
   }
 
   async setFoundChats(title: string) {
-    await this.fetchChats();
-
-    if (!title) {
-      return;
+    try {
+      const searchValue = await this.get(true, title);
+      store.set('selected.searchValue', title, false);
+      return searchValue;
+    } catch (err: any) {
+      console.error('ChatsController.setFoundChats error: ', err.message);
+      return null;
     }
-
-    const chats = store.getState().chats;
-    const foundChats = chats.filter((chat: Chat) => chat.title.includes(title));
-    delete store.getState().chats;
-    store.set('chats', foundChats, StoreEvents.ChatsUpdated);
-    console.log(store.getState().chats);
   }
 
-  async updateSelectedChatUser(type: 'addUsers' | 'deleteUsers') {
-    const selectChatId = store.getState().selectedChat.id;
-    const selectedUserId = store.getState().selectedUser.id;
-
-    await this.api[type](selectChatId, [selectedUserId]);
-
-    const selectedChatUser = await this.getChatUsers(selectChatId);
-    delete store.getState().selectedChat.users;
-    store.set(
-      'selectedChat.users',
-      selectedChatUser,
-      StoreEvents.SelectedChatUpdated
-    );
+  async create(title: string) {
+    try {
+      const chat = await this.api.create(title);
+      await this.get();
+      await this.select(chat.id);
+      return chat.id;
+    } catch (err: any) {
+      console.error('ChatsController.create error: ', err.message);
+      return null;
+    }
   }
 
-  async getChatUsers(idChat: number) {
-    const chatUsers = await this.api.getUsers(idChat);
-    const currentUserId = store.getState().currentUser.id;
-    const chatUsersWithoutCurrentUser = chatUsers.filter(
-      (user) => user.id !== currentUserId
-    );
+  async getToken(id: number) {
+    try {
+      const token = await this.api.getToken(id);
+      return token.token;
+    } catch (err: any) {
+      console.error('ChatsController.getToken error: ', err.message);
+      return null;
+    }
+  }
 
-    return chatUsersWithoutCurrentUser;
+  async getSocket(chatId: number) {
+    try {
+      if (store.getState().currentUser !== undefined) {
+        const userId = store.getState().currentUser?.id;
+        const token = await this.getToken(chatId);
+        if (userId && chatId && token) {
+          this.webSocket = new ChatWebSocket(
+            userId.toString(),
+            chatId.toString(),
+            token
+          );
+        }
+      }
+    } catch (err: any) {
+      console.error('ChatsController.getSocket error: ', err.message);
+    }
+  }
+
+  async addUserToChat(id: number, users: number[]) {
+    try {
+      await this.api.addUsers(id, users);
+      await this.get(true);
+    } catch (err: any) {
+      console.error('ChatsController.addUserToChat error: ', err.message);
+    }
+  }
+
+  async deleteUserFromChat(id: number, users: number[]) {
+    try {
+      await this.api.deleteUsers(id, users);
+      await this.get(true);
+    } catch (err: any) {
+      console.error('ChatsController.deleteUserFromChat error: ', err.message);
+    }
+  }
+
+  select(chatId: number) {
+    this.getSocket(chatId).then(() => {
+      store.set('selected.selectedChat', chatId);
+      this.get(true);
+    });
+  }
+
+  unselectAll() {
+    store.set('socket', null);
+    store.set('selected.selectedChat', null, true);
+    store.set('selected', null, true);
+  }
+
+  async sendMessage(message: string) {
+    try {
+      if (this.webSocket) {
+        this.webSocket.sendMessage(message);
+        await this.get();
+      }
+    } catch (err: any) {
+      console.error('ChatsController.sendMessage error: ', err.message);
+    }
+  }
+
+  async delete(chatId: number) {
+    try {
+      this.api.delete(chatId).then(async () => {
+        this.unselectAll();
+        await this.get(true);
+      });
+    } catch (err: any) {
+      console.error('ChatsController.delete error: ', err.message);
+    }
+  }
+
+  getChatWebSocket() {
+    return this.webSocket;
   }
 }
 

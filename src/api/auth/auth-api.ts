@@ -1,5 +1,5 @@
 import BaseAPI from '../base-api';
-import { ISignUpData, ISignInData,ISignUpResponse } from './auth.types';
+import { ISignUpData, ISignInData, ISignUpResponse } from './auth.types';
 
 export class AuthAPI extends BaseAPI {
   constructor() {
@@ -7,11 +7,11 @@ export class AuthAPI extends BaseAPI {
   }
 
   signUp(data: ISignUpData): Promise<ISignUpResponse> {
-    return this.http.post('/signup', { data });
+    return this.http.post('/signup', data);
   }
 
   signIn(data: ISignInData) {
-    return this.http.post('/signin', { data });
+    return this.http.post('/signin', data);
   }
 
   read(): Promise<User> {
@@ -28,3 +28,4 @@ export class AuthAPI extends BaseAPI {
 }
 
 export default new AuthAPI();
+

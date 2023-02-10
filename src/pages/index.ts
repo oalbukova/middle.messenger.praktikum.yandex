@@ -5,4 +5,3 @@ export * from './not-found';
 export * from './profile';
 export * from './server-err';
 export * from './sign-up';
-export * from './chat-not-selected';

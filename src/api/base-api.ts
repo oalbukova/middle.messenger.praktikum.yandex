@@ -1,6 +1,6 @@
-import { HTTPTransport } from "../core";
+import HTTPTransport from '../core/http-transport';
 
-export default abstract class BaseAPI {
+export default abstract class BaseApi {
   protected http: HTTPTransport;
 
   protected constructor(endpoint: string) {
@@ -9,7 +9,7 @@ export default abstract class BaseAPI {
 
   public abstract create?(data: unknown): Promise<unknown>;
 
-  public abstract read?(identifier?: string | Record<string, any> | number): Promise<unknown>;
+  public abstract read?(identifier?: string | number): Promise<unknown>;
 
   public abstract update?(identifier: string, data: unknown): Promise<unknown>;
 

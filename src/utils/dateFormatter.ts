@@ -1,26 +1,42 @@
-export function dateFormater(date: string | null | undefined, type?: string) {
-  if (!date) {
-      return null;
-  }
-  const calcDate = new Date(date);
-
-  if (isNaN(+calcDate)) {
-      return date;
-  }
+export const dateFormater = (date: string | null | undefined, type?: string) => {
+  const months = [
+    'янв',
+    'фев',
+    'мар',
+    'апр',
+    'мая',
+    'июн',
+    'июл',
+    'авг',
+    'сен',
+    'окт',
+    'ноя',
+    'дек',
+  ];
 
   const isMessage = type === 'message';
   const isChatList = type === 'chatList';
+
+  if (!date) {
+    return null;
+  }
+
+  const calcDate = new Date(date);
+
+  if (isNaN(+calcDate)) {
+    return date;
+  }
 
   const day = calcDate.getDate();
   const diff = new Date().getDate() - day;
 
   const isYesterday = diff === 1;
-  const isToday = diff < 1;
+  const isToday = diff === 0;
 
   if (isYesterday && !isMessage) {
-      return 'Вчера';
+    return 'Вчера';
   } else if (isToday && !isMessage && !isChatList) {
-      return 'Сегодня';
+    return 'Сегодня';
   }
 
   const hour = calcDate.getHours();
@@ -28,11 +44,10 @@ export function dateFormater(date: string | null | undefined, type?: string) {
   const minutes = calcDate.getMinutes();
   const calcMinutes = minutes >= 10 ? minutes : `0${minutes}`;
 
-  if (isMessage || isChatList && isToday) {
-      return `${calcHour}:${calcMinutes}`;
+  if (isMessage || (isChatList && isToday)) {
+    return `${calcHour}:${calcMinutes}`;
   }
 
-  const months = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
   const calcMouth = months[calcDate.getMonth()];
 
   return `${day} ${calcMouth}`;

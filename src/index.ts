@@ -1,5 +1,5 @@
 // core
-import { registerComponent, Router } from './core';
+import { registerComponent, Router, routes, store } from './core';
 
 // controllers
 import AuthController from '../src/controllers/AuthController';
@@ -14,7 +14,6 @@ import {
   ProfilePage,
   ServerErrPage,
   SignUpPage,
-  ChatNotSelectedPage,
 } from './pages';
 
 // components
@@ -23,10 +22,9 @@ import {
   Button,
   Aside,
   Avatar,
-  ChatAside,
-  ChatContent,
   ChatFooter,
   ChatHeader,
+  Chatlist,
   FormTitle,
   Input,
   Message,
@@ -39,21 +37,24 @@ import {
   ControlledInput,
   ErrorComponent,
   ChatBtn,
-  Loader,
+  ModalAddChat,
+  BtnAdd,
+  BtnHeader,
+  ModalButton,
 } from './components';
 
 registerComponent(Aside);
 registerComponent(Avatar);
 registerComponent(Button);
-registerComponent(ChatAside);
-registerComponent(ChatContent);
 registerComponent(ChatFooter);
 registerComponent(ChatHeader);
+registerComponent(Chatlist);
 registerComponent(FormTitle);
 registerComponent(Input);
 registerComponent(Link);
 registerComponent(Message);
 registerComponent(ModalAdd);
+registerComponent(ModalAddChat);
 registerComponent(ModalChat);
 registerComponent(ModalDelete);
 registerComponent(ModalFile);
@@ -62,38 +63,55 @@ registerComponent(Search);
 registerComponent(ControlledInput);
 registerComponent(ErrorComponent);
 registerComponent(ChatBtn);
-registerComponent(Loader);
+registerComponent(BtnAdd);
+registerComponent(BtnHeader);
+registerComponent(ModalButton);
+
+const router = new Router();
+const routesValues = Object.values(routes);
 
 document.addEventListener('DOMContentLoaded', async () => {
-  Router.use('/', SignInPage)
-    .use('/sign-up', SignUpPage)
-    .use('/change-password', ChangePasswordPage)
-    .use('/messenger', ChatPage)
-    .use('/chat-not-selected', ChatNotSelectedPage)
-    .use('/settings', ProfilePage)
-    .use('/server-err', ServerErrPage)
-    .use('/not-found', NotFoundPage);
+  router
+    //@ts-ignore
+    .use(routes.messenger, ChatPage)
+    //@ts-ignore
+    .use(routes.settings, ProfilePage)
+    .use(routes.signIn, SignInPage)
+    .use(routes.signUp, SignUpPage)
+    .use(routes.changePassword, ChangePasswordPage)
+    .use(routes.serverErr, ServerErrPage)
+    .use(routes.notFound, NotFoundPage);
 
   let isProtectedRoute = true;
 
   switch (window.location.pathname) {
-    case '/sign-up':
-    case '/':
+    case routes.signIn:
+    case routes.signUp:
       isProtectedRoute = false;
       break;
   }
 
-  try {
-    await AuthController.getUser();
-    await ChatsController.fetchChats();
-    Router.start();
-    if (!isProtectedRoute) {
-      Router.go('/messenger');
+  if (routesValues.includes(window.location.pathname as routes)) {
+    try {
+      await AuthController.getUser();
+      await ChatsController.get();
+      router.start();
+
+      if (!isProtectedRoute) {
+        router.go(routes.messenger);
+      }
+    } catch (e) {
+      console.log('Ошибка запроса при попытке найти пользователя:', e);
+      store.set('currentUser', null);
+      router.start();
+
+      if (isProtectedRoute) {
+        router.go(routes.signIn);
+      }
     }
-  } catch (error) {
-    Router.start();
-    if (isProtectedRoute) {
-      Router.go('/');
-    }
+  } else {
+    console.log('404', window.location.pathname);
+    router.start();
+    router.go(routes.notFound);
   }
 });

@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // types
 import { IErrorProps } from './error.types';

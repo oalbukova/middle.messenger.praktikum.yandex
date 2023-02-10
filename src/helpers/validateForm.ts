@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 export enum ValidateType {
   first_name = 'first_name',
@@ -13,10 +13,10 @@ export enum ValidateType {
   message = 'message',
 }
 
-interface IValidateRule {
+type IValidateRule = {
   value: string;
   type: string;
-}
+};
 
 export function validateForm(rules: IValidateRule[]) {
   let errorMessage = '';
@@ -64,7 +64,10 @@ export function validateForm(rules: IValidateRule[]) {
       }
     }
 
-    if (type === ValidateType.oldPassword || type === ValidateType.newPassword) {
+    if (
+      type === ValidateType.oldPassword ||
+      type === ValidateType.newPassword
+    ) {
       if (value.length === 0) {
         errorMessage = 'Поле Пароль должно быть заполнено';
         break;
@@ -107,7 +110,7 @@ export function validateForm(rules: IValidateRule[]) {
   return errorMessage;
 }
 
-export function onHandleBlur(e: Event, ref: { [key: string]: Block }) {
+export const onHandleBlur = (e: Event, ref: { [key: string]: Block }) => {
   const imputEl = e.target as HTMLInputElement;
   const errorMessage = validateForm([
     { type: imputEl.name, value: imputEl.value },
@@ -118,45 +121,70 @@ export function onHandleBlur(e: Event, ref: { [key: string]: Block }) {
   errorMessage
     ? imputEl.classList.add('input_type_error')
     : imputEl.classList.remove('input_type_error');
-}
+};
 
-export function onHandleFocus(e: Event, ref: { [key: string]: Block }) {
+export const onHandleFocus = (e: Event, ref: { [key: string]: Block }) => {
   const imputEl = e.target as HTMLInputElement;
   ref.errorRef.setProps({ text: '' });
   imputEl.classList.remove('input_type_error');
-}
+};
 
-export function onHandleSubmit(e: SubmitEvent, ref: { [key: string]: Block }) {
+export const onHandleSubmit = (
+  e: SubmitEvent,
+  ref: { [key: string]: Block }
+) => {
   e.preventDefault();
   let formData: any = {};
   let errors = [];
   let isValid = false;
-  const inputList = Array.from(
-    document.querySelectorAll('.input')
-  ) as HTMLInputElement[];
-
-  inputList.forEach((input) => {
+  if (ref.hasOwnProperty('message')) {
+    const imputEl = document.getElementsByName(
+      'message'
+    )[0] as HTMLInputElement;
+    console.log(imputEl.value);
     const errorMessage = validateForm([
-      { type: input.name, value: input.value },
+      { type: imputEl.name, value: imputEl.value },
     ]);
 
-    ref[input.name].refs.errorRef.setProps({
+    ref[imputEl.name].refs.errorRef.setProps({
       text: errorMessage,
     });
     errorMessage
-      ? input.classList.add('input_type_error')
-      : input.classList.remove('input_type_error');
+      ? imputEl.classList.add('input_type_error')
+      : imputEl.classList.remove('input_type_error');
 
-    errorMessage && errors.push(errorMessage);
-    formData[input.name] = input.value;
-  });
+    if (!errorMessage) {
+      isValid = true;
+      formData[imputEl.name] = imputEl.value;
+    }
+  } else {
+    const inputList = Array.from(
+      document.querySelectorAll('.input')
+    ) as HTMLInputElement[];
 
-  if (!errors.length) {
-    inputList.forEach((input) => (input.value = ''));
-    isValid = true;
+    inputList.forEach((input) => {
+      const errorMessage = validateForm([
+        { type: input.name, value: input.value },
+      ]);
+
+      ref[input.name].refs.errorRef.setProps({
+        text: errorMessage,
+      });
+      errorMessage
+        ? input.classList.add('input_type_error')
+        : input.classList.remove('input_type_error');
+
+      errorMessage && errors.push(errorMessage);
+      formData[input.name] = input.value;
+    });
+
+    if (!errors.length) {
+      inputList.forEach((input) => (input.value = ''));
+      isValid = true;
+    }
   }
 
   if (isValid) {
     return formData;
   }
-}
+};

@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // validate
 import { onHandleSubmit, onHandleBlur } from 'helpers/validateForm';
@@ -21,7 +21,7 @@ export class ChangePasswordPage extends Block {
 
       onSubmit: (e: SubmitEvent) => {
         const data: IUpdatePassword | undefined = onHandleSubmit(e, this.refs);
-      
+
         data && UserController.updatePassword(data as IUpdatePassword);
       },
     });

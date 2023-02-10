@@ -9,49 +9,43 @@ export interface BlockClass<P extends object = any> extends Function {
   componentName?: string;
 }
 
-export default class Block<P extends object = any> {
+export class Block<P extends object = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
-    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
-  } as const;
+  };
 
   static componentName: string;
 
   public id = nanoid(6);
 
-  _element: HTMLElement | null = null;
-  props: Readonly<P>;
-  children: { [id: string]: Block } = {};
+  public _element: Nullable<HTMLElement> = null;
+
+  public props: P;
+
+  public children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
-  state: any = {};
-  refs: { [key: string]: Block } = {};
+  public state: any = {};
+
+  public refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
 
+    this.getStateFromProps(props);
+
     this.props = props || ({} as P);
+    this.state = this._makePropsProxy(this.state);
 
     this.eventBus = () => eventBus;
 
     this._registerEvents(eventBus);
 
     eventBus.emit(Block.EVENTS.INIT, this.props);
-  }
-
-  _checkInDom() {
-    const elementInDOM = document.body.contains(this._element);
-
-    if (elementInDOM) {
-      setTimeout(() => this._checkInDom(), 1000);
-      return;
-    }
-
-    this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
   }
 
   _registerEvents(eventBus: EventBus<Events>) {
@@ -65,25 +59,22 @@ export default class Block<P extends object = any> {
     this._element = this._createDocumentElement('div');
   }
 
+  // @ts-expect-error
+  public getStateFromProps(props: any): void {
+    this.state = {};
+  }
+
   init() {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
   _componentDidMount(props: P) {
-    this._checkInDom();
-
     this.componentDidMount(props);
   }
 
+  // @ts-expect-error
   componentDidMount(props: P) {}
-
-  _componentWillUnmount() {
-    this.eventBus().destroy();
-    this.componentWillUnmount();
-  }
-
-  componentWillUnmount() {}
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -93,9 +84,11 @@ export default class Block<P extends object = any> {
     this._render();
   }
 
+  // @ts-expect-error
   componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
+
   setProps = (nextPartialProps: Partial<P>) => {
     if (!nextPartialProps) {
       return;
@@ -103,6 +96,7 @@ export default class Block<P extends object = any> {
 
     const prevProps = this.props;
     const nextProps = { ...prevProps, ...nextPartialProps };
+
     this.props = nextProps;
 
     this.eventBus().emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
@@ -132,7 +126,7 @@ export default class Block<P extends object = any> {
     this._addEvents();
   }
 
-  render(): string {
+  public render(): string {
     return '';
   }
 
@@ -150,7 +144,7 @@ export default class Block<P extends object = any> {
     return this.element!;
   }
 
-  _makePropsProxy(props: any): any {
+  _makePropsProxy(props: P): any {
     const self = this;
 
     return new Proxy(props as unknown as object, {
@@ -164,7 +158,6 @@ export default class Block<P extends object = any> {
         if (JSON.stringify(oldTarget[prop]) !== JSON.stringify(value)) {
           self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         }
-
         return true;
       },
       deleteProperty() {
@@ -178,8 +171,8 @@ export default class Block<P extends object = any> {
   }
 
   _removeEvents() {
+    // const { events } = this.props as any;
     const events: Record<string, () => void> = (this.props as any).events;
-
     if (!events || !this._element) {
       return;
     }
@@ -190,8 +183,8 @@ export default class Block<P extends object = any> {
   }
 
   _addEvents() {
+    // const { events } = this.props as any;
     const events: Record<string, () => void> = (this.props as any).events;
-
     if (!events) {
       return;
     }
@@ -224,10 +217,13 @@ export default class Block<P extends object = any> {
       const content = component.getContent();
       stub.replaceWith(content);
 
-      const layoutContent = content.querySelector('[data-layout="1"]');
+      const slotContent = content.querySelector(
+        '[data-slot="1"]'
+      ) as HTMLDivElement;
 
-      if (layoutContent && stubChilds.length) {
-        layoutContent.append(...stubChilds);
+      if (slotContent && stubChilds.length) {
+        slotContent.append(...stubChilds);
+        delete slotContent.dataset.slot;
       }
     });
 

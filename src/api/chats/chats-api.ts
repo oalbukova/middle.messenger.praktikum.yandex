@@ -1,52 +1,40 @@
+// api
 import BaseAPI from '../base-api';
-import { IChatsOption, IDeletedChatInfo, IToken } from './chats.types';
+
+// type
+import { IDeletedChatInfo, IToken, ICreateChatResponse } from './chats.types';
 
 export class ChatsAPI extends BaseAPI {
   constructor() {
     super('/chats');
   }
 
-  create(title: string) {
-    return this.http.post('/', {
-      data: { title },
-    });
+  create(title: string): Promise<ICreateChatResponse> {
+    return this.http.post('/', { title });
   }
 
   delete(id: number): Promise<IDeletedChatInfo> {
-    return this.http.delete('/', { data: { chatId: id } });
+    return this.http.delete('/', { chatId: id });
   }
 
-  read(options?: IChatsOption): Promise<Chat[]> {
-    return this.http.get('', {
-      data: options,
-    });
+  read(offset = 0, limit = 50, title = ''): Promise<Chat[]> {
+    return this.http.get(`?offset=${offset}&limit=${limit}&title=${title}`);
   }
 
-  getUsers(id: number): Promise<Array<User & { role: string }>> {
+  getUsers(id: number): Promise<User[]> {
     return this.http.get(`/${id}/users`);
   }
 
   addUsers(id: number, users: number[]) {
-    return this.http.put('/users', { data: { chatId: id, users } });
+    return this.http.put('/users', { chatId: id, users });
   }
 
   deleteUsers(id: number, users: number[]) {
-    return this.http.delete('/users', { data: { chatId: id, users } });
+    return this.http.delete('/users', { chatId: id, users });
   }
 
-  async getToken(id: number): Promise<string> {
-    const res: IToken = await this.http.post(`/token/${id}`);
-
-    return res?.token;
-  }
-
-  addChatAvatar(data: FormData): Promise<Chat> {
-    return this.http.put('/avatar', {
-      data,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+  async getToken(id: number): Promise<IToken> {
+    return this.http.post(`/token/${id}`);
   }
 
   update = undefined;

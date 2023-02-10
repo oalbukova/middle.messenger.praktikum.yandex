@@ -1,18 +1,13 @@
 // core
-import Block from 'core/Block';
+import {Block, withUser, store } from 'core';
 
 // controller
 import AuthController from '../../controllers/AuthController';
 import UserController from '../../controllers/UserController';
 
-// types
-import { IUpdateUser } from '../../api/user/user.types';
-
 // validate
 import { onHandleBlur, onHandleSubmit } from 'helpers/validateForm';
 
-import store from '../../core/store';
-import { withStore } from '../../hoc/withStore';
 
 // styles
 import './profile.scss';
@@ -20,12 +15,13 @@ import './profile.scss';
 class ProfilePageBase extends Block {
   constructor() {
     super({});
+
     this.setProps({
-      user: store.getState().user,
+      user: store.getState().currentUser,
       onBlur: (e: Event) => onHandleBlur(e, this.refs),
       onSubmit: (e: SubmitEvent) => {
-        const data: IUpdateUser | undefined = onHandleSubmit(e, this.refs);
-        data && UserController.updateUser(data as IUpdateUser);
+        const data: User | undefined = onHandleSubmit(e, this.refs);
+        data && UserController.updateUser(data as User);
       },
 
       onLogout: () => AuthController.logout(),
@@ -33,6 +29,7 @@ class ProfilePageBase extends Block {
   }
 
   render() {
+
     // language=hbs
     return `
       <section class="profile">
@@ -42,7 +39,7 @@ class ProfilePageBase extends Block {
           <form class="profile__form">
             {{{FormTitle formTitle="Настройки профиля"}}}
             {{{Avatar avatar=user.avatar}}}
-            <p class="profile__name">{{user.first_name}}</p>
+            <p class="profile__name">{{ user.display_name }}</p>
             {{{ControlledInput value=user.first_name ref="first_name" type="text" name="first_name" placeholder="имя" onBlur=onBlur }}}
             {{{ControlledInput value=user.second_name ref="second_name" type="text" name="second_name" placeholder="фамилия" onBlur=onBlur }}}
             {{{ControlledInput value=user.display_name ref="display_name" type="text" name="display_name" placeholder="ник" onBlur=onBlur }}}
@@ -59,5 +56,4 @@ class ProfilePageBase extends Block {
   }
 }
 
-const withUser = withStore((state) => ({ ...state.user }));
-export const ProfilePage = withUser(ProfilePageBase as typeof Block);
+export const ProfilePage = withUser(ProfilePageBase);

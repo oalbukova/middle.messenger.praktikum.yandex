@@ -1,7 +1,7 @@
-import Block from './Block';
+import { Block } from 'core';
 
-export default function renderDOM(block: Block) {
-  const root = document.querySelector('#app');
+export const renderDOM = (rootQuery: string, block: Block)=> {
+  const root = document.querySelector(rootQuery);
 
   if (!root) {
     throw new Error('Root not found');

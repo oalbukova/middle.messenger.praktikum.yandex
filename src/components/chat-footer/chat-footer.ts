@@ -1,12 +1,18 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
+
+// controllers
+import ChatsController from '../../controllers/ChatsController';
 
 // validate
 import { onHandleBlur, onHandleSubmit } from 'helpers/validateForm';
 
-
 // styles
 import './chat-footer.scss';
+
+type dataType = {
+  message: string;
+};
 
 export class ChatFooter extends Block {
   static componentName = 'ChatFooter';
@@ -14,21 +20,12 @@ export class ChatFooter extends Block {
   constructor() {
     super({});
     this.setProps({
-      onBlur: (e: Event) => onHandleBlur(e, this.refs),
-      onSubmit: (e: SubmitEvent) => {
-        const data: string | undefined = onHandleSubmit(e, this.refs);
-
-
+      onBlur: (e: Event) => {
+        onHandleBlur(e, this.refs);
       },
-
-
-      events: {
-        click: () => {
-          const modal = document.querySelector('.modal-file');
-          modal?.classList.contains('modal-file_active')
-            ? modal.classList.remove('modal-file_active')
-            : modal?.classList.add('modal-file_active');
-        },
+      onSubmit: (e: SubmitEvent) => {
+        const data: dataType | undefined = onHandleSubmit(e, this.refs);
+        data && ChatsController.sendMessage(data.message);
       },
     });
   }

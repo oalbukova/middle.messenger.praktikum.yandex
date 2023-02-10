@@ -1,124 +1,136 @@
-// core
-import Block from './Block';
+import { Block } from 'core';
+import { renderDOM } from './renderDOM';
 
-// pages
-import { NotFoundPage } from '../pages';
-
-function isEqual(lhs: string, rhs: string): boolean {
-  return lhs === rhs;
-}
-
-function render(query: string, block: Block) {
-  const root = document.querySelector(query);
-  if (root === null) {
-    throw new Error(`root not found by selector "${query}"`);
-  }
-  root.textContent = '';
-  root.append(block.getContent()!);
-  return root;
+export enum routes {
+  signIn = '/',
+  signUp = '/sign-up',
+  messenger = '/messenger',
+  settings = '/settings',
+  changePassword = '/change-password',
+  serverErr = '/server-err',
+  notFound = '/not-found',
 }
 
 class Route {
-  private _block: Block | null = null;
+  private pathname: string;
 
-  constructor(
-    private _pathname: string,
-    private _view: typeof Block,
-    private readonly _rootQuery: string
-  ) {}
+  private readonly BlockClass: typeof Block;
 
-  public navigate(pathname: string) {
+  private block: Block | null;
+
+  private props: any;
+
+  constructor(pathname: string, view: typeof Block, props: any) {
+    this.pathname = pathname;
+    this.BlockClass = view;
+    this.block = null;
+    this.props = props;
+  }
+
+  navigate(pathname: string) {
     if (this.match(pathname)) {
-      this._pathname = pathname;
+      this.pathname = pathname;
       this.render();
     }
   }
 
-  public leave() {
-    if (this._block) {
-      this._block = null;
+  leave() {
+    if (this.block) {
+      this.block = null;
     }
   }
 
-  public match(pathname: string) {
-    return isEqual(pathname, this._pathname);
+  match(pathname: string) {
+    return pathname === this.pathname;
   }
 
-  public render() {
-    if (!this._block) {
-      this._block = new this._view({});
-      render(this._rootQuery, this._block);
-      return;
+  render() {
+    if (!this.block) {
+      this.block = new this.BlockClass();
     }
-
-   // this._block.show();
+    renderDOM(this.props.rootQuery, this.block);
   }
 }
 
-class Router {
-  private static _instance: Router;
-  private _routes: Route[] = [];
-  private _history = window.history;
-  private _currentRoute: Route | null = null;
+export class Router {
+  private static __instance: Router;
 
-  constructor(private readonly _rootQuery: string) {
-    if (Router._instance) {
-      return Router._instance;
+  private routes: Route[] = [];
+
+  private history = window.history;
+
+  private currentRoute: Route | null = null;
+
+  constructor() {
+    if (Router.__instance) {
+      return Router.__instance;
     }
+
+    Router.__instance = this;
   }
 
   public use(pathname: string, block: typeof Block) {
-    const route = new Route(pathname, block, this._rootQuery);
-    this._routes.push(route);
+    try {
+      const route = new Route(pathname, block, { rootQuery: '#app' });
+      this.routes.push(route);
+    } catch (e: any) {
+      throw Error(e);
+    }
     return this;
   }
 
   public start() {
-    window.onpopstate = ((event: PopStateEvent) => {
-      const eventTarget = event.currentTarget as Window;
-      this._onRoute(eventTarget.location.pathname);
-    }).bind(this);
+    window.onpopstate = () => {
+      this._onRoute(window.location.pathname);
+    };
 
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
-    if (!route) {
-      const notFoundPage = new Route(
-        '/not-found',
-        NotFoundPage,
-        this._rootQuery
-      );
-      notFoundPage.render();
-      return;
-    }
-
-    if (this._currentRoute && this._currentRoute !== route) {
-      this._currentRoute.leave();
-    }
-
-    this._currentRoute = route;
-    route.render();
-  }
-
-  go(pathname: string) {
-    this._history.pushState({}, '', pathname);
+  public go(pathname: string) {
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
-  back() {
-    this._history.back();
+  public back() {
+    this.history.back();
   }
 
-  forward() {
-    this._history.forward();
+  public forward() {
+    this.history.forward();
   }
 
-  getRoute(pathname: string) {
-    return this._routes.find((route) => route.match(pathname));
+  private _onRoute(pathname: string) {
+    const route = this.getRoute(pathname);
+
+    if (!route) {
+      return;
+    }
+
+    if (this.currentRoute) {
+      this.currentRoute.leave();
+    }
+
+    this.currentRoute = route;
+
+    route.render();
+  }
+
+  private getRoute(pathname: string) {
+    return this.routes.find((route) => route.match(pathname));
   }
 }
 
-const router = new Router('#app');
-export default router;
+export interface WithRouterProps {
+  router: Router;
+}
+
+export function withRouter(Component: typeof Block) {
+  return class WithRouter extends Component {
+    public static componentName = Component.name;
+
+    constructor(props: any) {
+      super({ ...props, router: new Router() });
+    }
+  };
+}

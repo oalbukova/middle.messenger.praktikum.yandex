@@ -1,0 +1,30 @@
+.modal-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &__img {
+    width: 20px;
+    height: 20px;
+    margin-inline-end: 10px;
+
+    &_del {
+      width: 17px;
+      height: 17px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+    }
+  }
+
+  &__text {
+    margin: 0 0 0 10px;
+  }
+}

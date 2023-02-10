@@ -1,27 +1,36 @@
+// api
 import API, { AuthAPI } from '../api/auth/auth-api';
+
+// controllers
+import ChatsController from './ChatsController';
+
+// core
+import { Router, routes, store } from '../core';
+
+// types
 import { ISignUpData, ISignInData } from '../api/auth/auth.types';
-import router from '../core/router';
-import store from '../core/store';
-import ChatsController from "./ChatsController"
 
 class AuthController {
   private readonly api: AuthAPI;
-
+  private router: Router;
   constructor() {
     this.api = API;
+    this.router = new Router();
   }
 
   async signin(data: ISignInData) {
     try {
       await this.api.signIn(data);
       await this.getUser();
-      await ChatsController.fetchChats();
-      router.go('/messenger');
-    } catch (error: any) {
-      if (error.message == 'User already in system') {
-        router.go('/messenger');
+      await ChatsController.get();
+      this.router.go(routes.messenger);
+    } catch (err: any) {
+      if (err.message == 'User already in system') {
+        await this.getUser();
+        await ChatsController.get();
+        this.router.go(routes.messenger);
       }
-      console.error('AuthController.signin error: ', error.message);
+      console.error('AuthController.signin error: ', err.message);
     }
   }
 
@@ -29,9 +38,9 @@ class AuthController {
     try {
       await this.api.signUp(data);
       await this.getUser();
-      router.go('/messenger');
-    } catch (error: any) {
-      console.error('AuthController.signup error: ', error.message);
+      this.router.go(routes.messenger);
+    } catch (err: any) {
+      console.error('AuthController.signup error: ', err.message);
     }
   }
 
@@ -41,16 +50,20 @@ class AuthController {
     if (reasonText) {
       throw new Error(reasonText);
     }
-    store.set('user', user);
+    store.set('currentUser', user);
   }
 
   async logout() {
     try {
-      await this.api.logout();
-      router.go('/');
-      store.clearState();
-    } catch (error: any) {
-      console.error('AuthController.logout error: ', error.message);
+      await this.api
+        .logout()
+        .then(() => store.set('currentUser', null))
+        .then(() => store.set('chats', null))
+        .then(() => store.set('messages', null))
+        .then(() => store.set('selected', null));
+      this.router.go('/');
+    } catch (err: any) {
+      console.error('AuthController.logout error: ', err.message);
     }
   }
 }

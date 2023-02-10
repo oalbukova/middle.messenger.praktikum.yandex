@@ -15,16 +15,27 @@
     width: 47px;
     height: 57px;
     margin: auto 10px auto 0;
-    background-image: url('../../../static/images/avatar.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    object-fit: cover;
+    object-position: center;
     margin-inline-end: 10px;
+    border-radius: 50%;
+  }
+
+  &__infoWrapper {
+    display: flex;
+    flex-direction: column;
   }
 
   &__name {
-    margin: auto 0;
+    margin-block-start: 10px;
+    margin-block-end: 0;
     font-weight: 700;
+  }
+
+  &__count {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    color: var(--color-subtitle);
   }
 
   &__btn {
