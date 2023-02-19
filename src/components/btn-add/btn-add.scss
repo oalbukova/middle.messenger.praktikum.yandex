@@ -1,0 +1,10 @@
+.chat-btn-add {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: inherit;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}

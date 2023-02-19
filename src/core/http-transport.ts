@@ -1,78 +1,100 @@
+import { queryStringify } from '../utils';
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
+  PATCH = 'PATCH',
   DELETE = 'DELETE',
 }
 
+export enum ContentType {
+  json = 'application/json',
+  formData = 'multipart/form-data',
+}
 type TRequestOptions = {
-  method?: METHODS;
-  headers?: Record<string, string>;
-  data?: unknown;
-  timeout?: number;
+  method: METHODS;
+  data?: any;
+  type: ContentType;
 };
 
-type HTTPMethod = (url: string, options?: TRequestOptions) => Promise<unknown>;
+type HTTPMethod = <Response = void>(
+  url: string,
+  data?: unknown,
+  type?: ContentType
+) => Promise<Response>;
 
 type TQueryStringifyData = Record<string, string | number>;
 
-function queryStringify(data: TQueryStringifyData) {
-  return Object.entries(data).reduce(
-    (acc, e, i) => `${acc}${i > 0 ? '&' : '?'}${e[0]}=${e[1]}`,
-    ''
-  );
-}
+export default class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
 
-class HTTPTransport {
-  request = (url: string, options: TRequestOptions) => {
-    const {
-      method = METHODS.GET,
-      headers = {},
-      data,
-      timeout = 5000,
-    } = options;
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
+
+  private request<Response>(
+    url: string,
+    options: TRequestOptions = { method: METHODS.GET, type: ContentType.json }
+  ): Promise<Response> {
+    const { method, type, data } = options;
 
     const reqUrl =
       method === METHODS.GET && data
         ? url + queryStringify(data as TQueryStringifyData)
         : url;
+
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+      const isGet = method === METHODS.GET;
 
-      xhr.open(method, reqUrl);
-      xhr.timeout = timeout;
+      xhr.open(method, isGet && !!data ? reqUrl : url);
 
-      Object.entries(headers).forEach(([key, value]) =>
-        xhr.setRequestHeader(key, value)
-      );
-
-      xhr.onload = function () {
-        resolve(xhr);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
       };
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
+
+      xhr.onabort = () => reject({ reason: 'abort' });
+      xhr.onerror = () => reject({ reason: 'network error' });
+      xhr.ontimeout = () => reject({ reason: 'timeout' });
+
+      if (type !== ContentType.formData) {
+        xhr.setRequestHeader('Content-Type', type);
+      }
+
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       if (method === METHODS.GET || !data) {
         xhr.send();
-      } else {
+      } else if (type === ContentType.json) {
         xhr.send(JSON.stringify(data));
+      } else {
+        xhr.send(data);
       }
     });
-  };
+  }
 
-  get: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.GET });
-  };
-  post: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.POST });
-  };
-  put: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.PUT });
-  };
-  delete: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.DELETE });
-  };
+  public get: HTTPMethod = (path = '/', data?, type = ContentType.json) =>
+    this.request(this.endpoint + path, { type, data, method: METHODS.GET });
+
+  public post: HTTPMethod = (path, data?, type = ContentType.json) =>
+    this.request(this.endpoint + path, { type, data, method: METHODS.POST });
+
+  public put: HTTPMethod = (path, data, type = ContentType.json) =>
+    this.request(this.endpoint + path, { type, data, method: METHODS.PUT });
+
+  public patch: HTTPMethod = (path, data, type = ContentType.json) =>
+    this.request(this.endpoint + path, { type, data, method: METHODS.PATCH });
+
+  public delete: HTTPMethod = (path, data?, type = ContentType.json) =>
+    this.request(this.endpoint + path, { type, data, method: METHODS.DELETE });
 }
-
-export default new HTTPTransport();

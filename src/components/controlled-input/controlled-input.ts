@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // validate
 import { onHandleFocus } from 'helpers/validateForm';
@@ -24,7 +24,11 @@ export class ControlledInput extends Block {
     // language=hbs
     return `
       <div class="controlled-input">
-        {{{Input ref="inputRef" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" onFocus=onFocus onBlur=onBlur }}}
+        {{#if value}}
+          {{{Input ref="inputRef" value="{{value}}" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" onFocus=onFocus onBlur=onBlur }}}
+        {{else}}
+          {{{Input ref="inputRef" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" onFocus=onFocus onBlur=onBlur }}}
+        {{/if}}
         {{{ErrorComponent ref="errorRef" text=error }}}
       </div>
     `;

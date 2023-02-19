@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // types
 import { IModalItemProps } from './modal-item.types';
@@ -12,7 +12,6 @@ export class ModalItem extends Block {
 
   constructor(props: IModalItemProps) {
     super({ ...props });
-    console.log(props.src);
   }
 
   render() {

@@ -1,4 +1,9 @@
-export { default as Block } from './Block';
-export { default as registerComponent } from './registerComponent';
-export { default as renderDOM } from './renderDOM';
-export { default as HTTPTransport } from './http-transport';
+export * from './Block';
+export * from './registerComponent';
+export * from './renderDOM';
+export * from './http-transport';
+export * from './router';
+export * from './store';
+export * from './WSTransport';
+
+

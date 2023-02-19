@@ -23,7 +23,13 @@
     flex-direction: column;
     width: var(--full);
     max-width: 400px;
+  }
+
+  &__form-wrapper {
     margin: auto 0 auto 15%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 
   &__image-right {

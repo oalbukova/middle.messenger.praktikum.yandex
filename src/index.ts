@@ -1,9 +1,12 @@
 // core
-import { renderDOM, registerComponent } from './core';
+import { registerComponent, Router, routes, store } from './core';
+
+// controllers
+import AuthController from '../src/controllers/AuthController';
+import ChatsController from '../src/controllers/ChatsController';
 
 // pages
 import {
-  OnboardingPage,
   SignInPage,
   ChangePasswordPage,
   ChatPage,
@@ -11,21 +14,17 @@ import {
   ProfilePage,
   ServerErrPage,
   SignUpPage,
-  ChatNotSelectedPage,
 } from './pages';
 
 // components
 import {
-  MainLink,
   Link,
   Button,
-  Chat,
   Aside,
   Avatar,
-  ChatAside,
-  ChatContent,
   ChatFooter,
   ChatHeader,
+  Chatlist,
   FormTitle,
   Input,
   Message,
@@ -38,25 +37,24 @@ import {
   ControlledInput,
   ErrorComponent,
   ChatBtn,
+  ModalAddChat,
+  BtnAdd,
+  BtnHeader,
+  ModalButton,
 } from './components';
-
-// data
-import { links } from './data';
 
 registerComponent(Aside);
 registerComponent(Avatar);
 registerComponent(Button);
-registerComponent(Chat);
-registerComponent(ChatAside);
-registerComponent(ChatContent);
 registerComponent(ChatFooter);
 registerComponent(ChatHeader);
+registerComponent(Chatlist);
 registerComponent(FormTitle);
 registerComponent(Input);
 registerComponent(Link);
-registerComponent(MainLink);
 registerComponent(Message);
 registerComponent(ModalAdd);
+registerComponent(ModalAddChat);
 registerComponent(ModalChat);
 registerComponent(ModalDelete);
 registerComponent(ModalFile);
@@ -65,42 +63,55 @@ registerComponent(Search);
 registerComponent(ControlledInput);
 registerComponent(ErrorComponent);
 registerComponent(ChatBtn);
+registerComponent(BtnAdd);
+registerComponent(BtnHeader);
+registerComponent(ModalButton);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const path: string = document.location.pathname;
-  switch (path) {
-    case '/':
-      renderDOM(
-        new OnboardingPage({
-          links,
-        })
-      );
+const router = new Router();
+const routesValues = Object.values(routes);
+
+document.addEventListener('DOMContentLoaded', async () => {
+  router
+    //@ts-ignore
+    .use(routes.messenger, ChatPage)
+    //@ts-ignore
+    .use(routes.settings, ProfilePage)
+    .use(routes.signIn, SignInPage)
+    .use(routes.signUp, SignUpPage)
+    .use(routes.changePassword, ChangePasswordPage)
+    .use(routes.serverErr, ServerErrPage)
+    .use(routes.notFound, NotFoundPage);
+
+  let isProtectedRoute = true;
+
+  switch (window.location.pathname) {
+    case routes.signIn:
+    case routes.signUp:
+      isProtectedRoute = false;
       break;
-    case '/sign-in':
-      renderDOM(new SignInPage());
-      break;
-    case '/sign-up':
-      renderDOM(new SignUpPage());
-      break;
-    case '/change-password':
-      renderDOM(new ChangePasswordPage());
-      break;
-    case '/chat-page':
-      renderDOM(new ChatPage());
-      break;
-    case '/chat-not-selected':
-      renderDOM(new ChatNotSelectedPage());
-      break;
-    case '/profile':
-      renderDOM(new ProfilePage());
-      break;
-    case '/server-err':
-      renderDOM(new ServerErrPage());
-      break;
-    case '/not-found':
-      renderDOM(new NotFoundPage());
-      break;
-    default:
-      renderDOM(new NotFoundPage());
+  }
+
+  if (routesValues.includes(window.location.pathname as routes)) {
+    try {
+      await AuthController.getUser();
+      await ChatsController.get();
+      router.start();
+
+      if (!isProtectedRoute) {
+        router.go(routes.messenger);
+      }
+    } catch (e) {
+      console.log('Ошибка запроса при попытке найти пользователя:', e);
+      store.set('currentUser', null);
+      router.start();
+
+      if (isProtectedRoute) {
+        router.go(routes.signIn);
+      }
+    }
+  } else {
+    console.log('404', window.location.pathname);
+    router.start();
+    router.go(routes.notFound);
   }
 });

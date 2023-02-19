@@ -3,14 +3,16 @@
   width: max-content;
   margin: auto;
 
+  &__input {
+    display: none;
+  }
+
   &__img {
-    width: 117px;
-    height: 141px;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
     margin: 0 auto 20px;
-    background-image: url('../../../static/images/avatar.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     cursor: pointer;
   }

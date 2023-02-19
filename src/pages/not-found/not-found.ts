@@ -1,6 +1,5 @@
 // core
-import Block from 'core/Block';
-
+import { Block } from 'core';
 // styles
 import './not-found.scss';
 

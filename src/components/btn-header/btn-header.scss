@@ -1,0 +1,25 @@
+.btn {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  margin: auto 0;
+  background-color: inherit;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.img {
+  width: 3px;
+  height: 16px;
+  margin: auto;
+  background-image: url('/static/images/menu.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

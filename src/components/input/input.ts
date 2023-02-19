@@ -1,5 +1,5 @@
 // core
-import Block from 'core/Block';
+import { Block } from 'core';
 
 // types
 import { IInputProps } from './input.types';
@@ -20,7 +20,7 @@ export class Input extends Block {
   render() {
     // language=hbs
     return `
-      <input class="input {{#if text}}input_type_error{{/if}}" type="{{type}}" name="{{name}}" placeholder="{{placeholder}}">
+      <input class="input {{#if text}}input_type_error{{/if}}" type="{{type}}" value="{{value}}" name="{{name}}" placeholder="{{placeholder}}">
     `;
   }
 }
