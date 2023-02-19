@@ -171,7 +171,6 @@ export class Block<P extends object = any> {
   }
 
   _removeEvents() {
-    // const { events } = this.props as any;
     const events: Record<string, () => void> = (this.props as any).events;
     if (!events || !this._element) {
       return;
@@ -183,7 +182,6 @@ export class Block<P extends object = any> {
   }
 
   _addEvents() {
-    // const { events } = this.props as any;
     const events: Record<string, () => void> = (this.props as any).events;
     if (!events) {
       return;

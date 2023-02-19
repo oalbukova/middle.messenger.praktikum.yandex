@@ -8,8 +8,8 @@
   }
 
   &__img {
-    width: 117px;
-    height: 117px;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
     margin: 0 auto 20px;
     object-fit: cover;
     object-position: center;
