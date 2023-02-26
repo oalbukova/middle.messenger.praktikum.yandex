@@ -31,7 +31,7 @@
   "homepage": "https://github.com/oalbukova/middle.messenger.praktikum.yandex#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run stylelint:fix && npm run lint && npm run prettier"
     }
   },
   "lint-staged": {
