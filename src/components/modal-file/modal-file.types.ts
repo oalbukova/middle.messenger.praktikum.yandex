@@ -3,4 +3,3 @@ export interface IModalFile {
   src: HTMLImageElement;
   modificator?: boolean;
 }
-

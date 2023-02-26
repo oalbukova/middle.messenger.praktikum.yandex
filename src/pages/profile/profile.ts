@@ -1,5 +1,5 @@
 // core
-import {Block, withUser, store } from 'core';
+import { Block, withUser, store } from 'core';
 
 // controller
 import AuthController from '../../controllers/AuthController';
@@ -7,7 +7,6 @@ import UserController from '../../controllers/UserController';
 
 // validate
 import { onHandleBlur, onHandleSubmit } from 'helpers/validateForm';
-
 
 // styles
 import './profile.scss';
@@ -29,7 +28,6 @@ class ProfilePageBase extends Block {
   }
 
   render() {
-
     // language=hbs
     return `
       <section class="profile">

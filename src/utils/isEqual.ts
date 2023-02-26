@@ -6,11 +6,11 @@ type PlainObject<T = any> = {
 
 const isArray = (value: unknown): value is [] => {
   return Array.isArray(value);
-}
+};
 
-const isArrayOrObject =(value: unknown): value is [] | PlainObject => {
+const isArrayOrObject = (value: unknown): value is [] | PlainObject => {
   return isPlainObject(value) || isArray(value);
-}
+};
 
 export const isEqual = (lhs: PlainObject, rhs: PlainObject) => {
   if (Object.keys(lhs).length !== Object.keys(rhs).length) {
@@ -32,4 +32,4 @@ export const isEqual = (lhs: PlainObject, rhs: PlainObject) => {
   }
 
   return true;
-}
+};

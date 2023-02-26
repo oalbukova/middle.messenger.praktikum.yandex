@@ -26,4 +26,3 @@ export const set = (
   );
   return merge(object as Indexed, result, rewrite);
 };
-

@@ -104,11 +104,11 @@ class ChatPageBase extends Block {
           {{#if ${this.props.selectedChat} }}
             {{{ChatHeader avatar="${
               this.props.chatList[this.props.selectedChat]?.avatar
-              }" title="${
-              this.props.chatList[this.props.selectedChat]?.title
-              }" userCount=${
-              this.props.chatList[this.props.selectedChat]?.user_list?.length
-              } }}}
+            }" title="${
+      this.props.chatList[this.props.selectedChat]?.title
+    }" userCount=${
+      this.props.chatList[this.props.selectedChat]?.user_list?.length
+    } }}}
             <section class='chat-content'>
               {{#if ${
                 store.getState().messages &&

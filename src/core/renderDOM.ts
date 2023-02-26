@@ -1,6 +1,6 @@
 import { Block } from 'core';
 
-export const renderDOM = (rootQuery: string, block: Block)=> {
+export const renderDOM = (rootQuery: string, block: Block) => {
   const root = document.querySelector(rootQuery);
 
   if (!root) {
@@ -9,4 +9,4 @@ export const renderDOM = (rootQuery: string, block: Block)=> {
 
   root.innerHTML = '';
   root.appendChild(block.getContent());
-}
+};

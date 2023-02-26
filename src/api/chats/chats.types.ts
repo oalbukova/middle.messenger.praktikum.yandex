@@ -18,7 +18,5 @@ export interface IDeletedChatInfo {
 }
 
 export interface ICreateChatResponse {
-id: number;
+  id: number;
 }
-
-
