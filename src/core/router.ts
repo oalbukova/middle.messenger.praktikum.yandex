@@ -55,11 +55,13 @@ class Route {
 export class Router {
   private static __instance: Router;
 
-  private routes: Route[] = [];
+  public routes: Route[] = [];
 
   private history = window.history;
 
   private currentRoute: Route | null = null;
+
+  public isStarted = false;
 
   constructor() {
     if (Router.__instance) {
@@ -80,11 +82,18 @@ export class Router {
   }
 
   public start() {
-    window.onpopstate = () => {
+    if (!this.isStarted) {
+      this.isStarted = true;
+      window.onpopstate = () => {
+        this._onRoute(window.location.pathname);
+      };
       this._onRoute(window.location.pathname);
-    };
+    }
+    //   window.onpopstate = () => {
+    //     this._onRoute(window.location.pathname);
+    //   };
 
-    this._onRoute(window.location.pathname);
+    //   this._onRoute(window.location.pathname);
   }
 
   public go(pathname: string) {

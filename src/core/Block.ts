@@ -2,7 +2,7 @@ import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 
-type Events = Values<typeof Block.EVENTS>;
+export type Events = Values<typeof Block.EVENTS>;
 
 export interface BlockClass<P extends object = any> extends Function {
   new (props: P): Block<P>;

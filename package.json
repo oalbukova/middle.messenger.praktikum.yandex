@@ -6,12 +6,13 @@
     "start": "npm run build && node ./server.js",
     "dev": "webpack --config ./webpack.dev.js && webpack serve --config ./webpack.dev.js",
     "build": "webpack --config ./webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "eslint . --fix",
     "stylelint": "stylelint src/**/*.{css,scss}",
     "stylelint:fix": "stylelint src/**/*.{css,scss} --fix",
     "prettier": "prettier --write src/**/*.{js,ts,scss}",
-    "check:lint": "lint-staged"
+    "check:lint": "lint-staged",
+    "check:test": "jest"
   },
   "repository": {
     "type": "git",
@@ -42,7 +43,8 @@
     ],
     "*.scss": [
       "npm run prettier",
-      "npm run lint"
+      "npm run lint",
+      "npm run stylelint:fix"
     ],
     "*.ts": [
       "npm run prettier",
@@ -50,19 +52,32 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "7.21.0",
+    "@babel/preset-env": "7.20.2",
+    "@babel/preset-typescript": "7.21.0",
+    "@testing-library/dom": "9.0.0",
+    "@testing-library/jest-dom": "5.16.5",
+    "@types/jest": "27.5.2",
     "@types/node": "18.11.18",
+    "@types/sinon": "10.0.13",
     "@typescript-eslint/eslint-plugin": "5.46.1",
     "@typescript-eslint/parser": "5.46.1",
+    "clean-webpack-plugin": "4.0.0",
     "css-loader": "6.7.3",
+    "dotenv": "16.0.3",
+    "dotenv-webpack": "8.0.1",
     "eslint": "8.29.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.2.1",
-    "html-webpack-plugin": "^5.5.0",
+    "html-webpack-plugin": "5.5.0",
     "husky": "8.0.2",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "27.5.1",
     "lint-staged": "13.1.0",
-    "mini-css-extract-plugin": "^2.7.2",
-    "nanoid": "4.0.1",
+    "mini-css-extract-plugin": "2.7.2",
+    "msw": "0.39.2",
+    "nanoid": "3.3.4",
     "npm-run-all": "4.1.5",
     "postcss": "8.4.20",
     "postcss-import": "15.1.0",
@@ -70,6 +85,7 @@
     "postcss-nested": "6.0.0",
     "postcss-simple-vars": "7.0.1",
     "prettier": "2.8.1",
+    "sinon": "15.0.1",
     "stylelint": "14.16.0",
     "stylelint-config-prettier-scss": "0.0.1",
     "stylelint-config-standard-scss": "6.1.0",
@@ -79,12 +95,31 @@
     "webpack-cli": "5.0.1",
     "webpack-dev-server": "4.11.1",
     "webpack-merge": "5.8.0",
-    "dotenv": "16.0.3",
-    "dotenv-webpack": "8.0.1",
-    "clean-webpack-plugin": "4.0.0"
+    "whatwg-fetch": "3.6.2"
   },
   "dependencies": {
     "express": "4.18.1",
     "handlebars": "4.7.7"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFiles": [
+      "<rootDir>/src/tests/setupEnv.ts"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/tests/setup.ts"
+    ],
+    "moduleNameMapper": {
+      "\\.(scss|png|svg)$": "identity-obj-proxy",
+      "^core(.*)$": "<rootDir>/src/core$1",
+      "^data(.*)$": "<rootDir>/src/data$1",
+      "^helpers(.*)$": "<rootDir>/src/helpers$1",
+      "^components(.*)$": "<rootDir>/src/components$1",
+      "^controllers(.*)$": "<rootDir>/src/controllers$1",
+      "^utils(.*)$": "<rootDir>/src/utils$1",
+      "^api(.*)$": "<rootDir>/src/api$1",
+      "^pages(.*)$": "<rootDir>/src/pages$1",
+      "^tests(.*)$": "<rootDir>/src/tests$1"
+    }
   }
 }
