@@ -3,9 +3,9 @@ import { Block } from 'core';
 import './chat-list.scss';
 
 interface ChatlistProps {
-    label?: string;
-    onClick: () => void;
-    events: Record<string, unknown>;
+  label?: string;
+  onClick: () => void;
+  events: Record<string, unknown>;
 }
 
 export class Chatlist extends Block<ChatlistProps> {

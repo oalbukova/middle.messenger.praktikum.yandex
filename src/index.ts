@@ -1,3 +1,5 @@
+import '../static/styles/style.scss';
+
 // core
 import { registerComponent, Router, routes, store } from './core';
 
@@ -14,6 +16,8 @@ import {
   ProfilePage,
   ServerErrPage,
   SignUpPage,
+
+
 } from './pages';
 
 // components

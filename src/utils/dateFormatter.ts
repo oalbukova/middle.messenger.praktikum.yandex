@@ -1,4 +1,7 @@
-export const dateFormater = (date: string | null | undefined, type?: string) => {
+export const dateFormater = (
+  date: string | null | undefined,
+  type?: string
+) => {
   const months = [
     'янв',
     'фев',
@@ -51,4 +54,4 @@ export const dateFormater = (date: string | null | undefined, type?: string) => 
   const calcMouth = months[calcDate.getMonth()];
 
   return `${day} ${calcMouth}`;
-}
+};

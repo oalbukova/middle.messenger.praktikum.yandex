@@ -15,5 +15,3 @@ export interface ISignInData {
 export interface ISignUpResponse {
   id: number;
 }
-
-
