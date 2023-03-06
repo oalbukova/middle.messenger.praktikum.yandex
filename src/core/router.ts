@@ -89,11 +89,6 @@ export class Router {
       };
       this._onRoute(window.location.pathname);
     }
-    //   window.onpopstate = () => {
-    //     this._onRoute(window.location.pathname);
-    //   };
-
-    //   this._onRoute(window.location.pathname);
   }
 
   public go(pathname: string) {

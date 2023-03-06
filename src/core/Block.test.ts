@@ -39,7 +39,6 @@ describe('./Block', () => {
 
     block.setProps({ title: 'new title' });
 
-    expect(mock).toHaveBeenCalled();
     expect(mock).toHaveBeenCalledTimes(1);
     expect(mock).toHaveBeenCalledWith(
       { title: 'test' },
